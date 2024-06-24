@@ -6,7 +6,10 @@
 #resolv_is_managed:
 
 # List of DNS nameservers.
-#resolv_nameservers:
+resolv_nameservers:
+  - 10.255.250.1
+  - 10.255.250.2
+
 
 # DNS domain suffix.
 #resolv_domain:
