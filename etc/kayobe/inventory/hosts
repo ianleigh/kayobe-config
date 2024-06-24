@@ -1,0 +1,31 @@
+# This host acts as the configuration management Ansible control host. This must be
+# localhost.
+localhost ansible_connection=local
+
+[seed]
+srcseed
+
+[controllers]
+srcseed
+
+[compute]
+c-1
+c-2
+c-3
+c-4
+c-5
+c-6
+c-7
+c-14
+# c-8
+# c-9
+# c-10
+# c-11
+# c-12
+# c-13
+
+[storage]
+ds1
+ds2
+mds1
+mds2
