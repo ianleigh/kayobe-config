@@ -106,16 +106,6 @@ seed_bootstrap_user: ileigh
 #     post: "{{ kayobe_env_config_path }}/containers/squid/post.yml"
 #
 #seed_containers:
-seed_containers:
-  squid:
-    image: stackhpc/squid
-    pre: "{{ kayobe_config_path }}/containers/squid_proxy/pre.yml"
-    tag: "4.15"
-    network_mode: host
-    volumes:
-      - squid_spool:/var/spool/squid
-      - /srv/docker/squid/squid.conf:/etc/squid/squid.conf
-      - /var/log/squid:/var/log/squid
 
 # Whether to attempt a basic authentication login to a registry when
 # deploying seed containers
