@@ -15,6 +15,10 @@
 # Further information on the available network attributes is provided in the
 # network configuration reference in the Kayobe documentation.
 
+prod_interface: eno12399
+data_interface: ens2f0np0
+ipmi_interface: enp177s0
+
 ###############################################################################
 # Dummy variable to allow Ansible to accept this file.
 workaround_ansible_issue_8743: yes
