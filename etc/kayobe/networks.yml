@@ -89,8 +89,10 @@ storage_mgmt_net_name: data
 
 prod_cidr: 192.168.10.0/24
 #prod_gateway: 192.168.10.201
+prod_vip_address: 192.168.10.200
 
 data_cidr: 192.168.100.0/24
+data_vip_address: 192.168.100.200
 
 ipmi_cidr: 192.168.1.0/24
 

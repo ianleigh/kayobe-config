@@ -2,8 +2,8 @@
 # localhost.
 localhost ansible_connection=local
 
-[seed]
-srcseed
+#[seed]
+#srcseed
 
 [controllers]
 srcseed
