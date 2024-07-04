@@ -25,7 +25,7 @@ c-12
 # c-14
 
 [storage]
-#ds1
-#ds2
-#mds1
-#mds2
+ds1
+ds2
+mds1
+mds2
