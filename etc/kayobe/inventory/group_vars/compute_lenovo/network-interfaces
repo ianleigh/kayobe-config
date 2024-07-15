@@ -17,7 +17,6 @@
 
 prod_interface: ens9f0np0
 data_interface: ens3f0np0
-prod_gateway: 192.168.10.201
 
 ###############################################################################
 # Dummy variable to allow Ansible to accept this file.
