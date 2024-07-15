@@ -6,11 +6,12 @@ localhost ansible_connection=local
 #srcseed
 
 [controllers]
-srcseed
+#srcseed
+c-1
 
 [compute]
 c-1
-#c-2
+c-2
 #c-3
 #c-4
 #c-5
