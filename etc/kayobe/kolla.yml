@@ -217,7 +217,7 @@
 # kolla-ansible. If a variable name is not in this mapping the kayobe name is
 # used.
 #kolla_overcloud_inventory_pass_through_host_vars_map_extra:
-kolla_overcloud_inventory_pass_through_host_vars_map_extra:
+kolla_overcloud_inventory_pass_through_host_vars_extra:
   - "nova_cpu_dedicated_set"
   - "nova_cpu_shared_set"
   - "nova_cell_compute_provider_config"
