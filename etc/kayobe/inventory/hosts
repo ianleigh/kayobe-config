@@ -29,7 +29,7 @@ c-13
 
 [compute:children]
 compute_lenovo
-# compute_dell
+compute_dell
 
 [storage]
 #ds1

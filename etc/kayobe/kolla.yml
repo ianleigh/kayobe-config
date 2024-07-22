@@ -282,7 +282,7 @@
 #kolla_enable_ceilometer_ipmi:
 #kolla_enable_ceilometer_prometheus_pushgateway:
 #kolla_enable_cells:
-#kolla_enable_central_logging:
+kolla_enable_central_logging: yes
 #kolla_enable_ceph_rgw:
 #kolla_enable_ceph_rgw_loadbalancer:
 #kolla_enable_cinder:
@@ -312,7 +312,7 @@
 #kolla_enable_glance_image_cache:
 #kolla_enable_gnocchi:
 #kolla_enable_gnocchi_statsd:
-#kolla_enable_grafana:
+kolla_enable_grafana: yes
 #kolla_enable_grafana_external:
 #kolla_enable_hacluster:
 #kolla_enable_haproxy:
@@ -403,7 +403,7 @@
 #kolla_enable_ovn:
 #kolla_enable_ovs_dpdk:
 #kolla_enable_placement:
-#kolla_enable_prometheus:
+kolla_enable_prometheus: yes
 #kolla_enable_prometheus_alertmanager:
 #kolla_enable_prometheus_alertmanager_external:
 #kolla_enable_prometheus_blackbox_exporter:
