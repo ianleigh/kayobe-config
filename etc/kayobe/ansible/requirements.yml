@@ -2,3 +2,5 @@
 collections:
   - name: stackhpc.linux
     version: 1.2.3
+  - name: stackhpc.cephadm
+    version: 1.15.1
