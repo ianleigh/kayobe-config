@@ -32,7 +32,17 @@ compute_lenovo
 compute_dell
 
 [storage]
-#ds1
-#ds2
+ds1
+ds2
 #mds1
-#mds2
+mds2
+
+[mons:children]
+storage
+
+[mgrs:children]
+storage
+
+[osds:children]
+storage
+

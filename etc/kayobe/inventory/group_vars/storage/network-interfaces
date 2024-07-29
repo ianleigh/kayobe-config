@@ -15,10 +15,8 @@
 # Further information on the available network attributes is provided in the
 # network configuration reference in the Kayobe documentation.
 
-prod_interface: eno8303
-# TODO - check this!
+prod_interface: enp177s0
 data_interface: ens2f0np0
-prod_gateway: 192.168.10.201
 
 ###############################################################################
 # Dummy variable to allow Ansible to accept this file.
