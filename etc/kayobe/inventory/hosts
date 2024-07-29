@@ -10,7 +10,6 @@ localhost ansible_connection=local
 c-1
 
 [compute_lenovo]
-c-1
 c-2
 c-3
 c-4
@@ -30,6 +29,7 @@ c-8
 [compute:children]
 compute_lenovo
 compute_dell
+controllers
 
 [storage]
 ds1
