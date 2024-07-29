@@ -1,3 +1,9 @@
 ---
 # Add extra Kolla global configuration here.
 prechecks_enable_host_ntp_checks: false
+
+# Just use ovn octavia
+octavia_auto_configure: "no"
+octavia_provider_drivers: "ovn:OVN provider"
+octavia_provider_agents: "ovn"
+enable_horizon_octavia: false
