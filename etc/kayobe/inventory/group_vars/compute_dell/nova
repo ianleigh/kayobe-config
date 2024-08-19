@@ -8,5 +8,5 @@ nova_cell_compute_provider_config:
       traits:
         additional:
           - 'CUSTOM_R660'
-nova_cpu_dedicated_set: 0-63,^0,^16,^32,^48
+nova_cpu_dedicated_set: 0-127,^0,^32,^64,^96
 nova_instance_datadir_volume: /var/lib/nova

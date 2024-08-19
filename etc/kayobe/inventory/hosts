@@ -11,20 +11,20 @@ c-1
 
 [compute_lenovo]
 c-2
-c-3
-c-4
+#c-3 OS on sdb
+#c-4 OS on sdb
 c-5
 c-6
 c-7
-#c-14
+# c-14 networking broken
 
 [compute_dell]
 c-8
-#c-9
-#c-10
-#c-11
-#c-12
-#c-13
+c-9
+c-10
+#c-11 storage broken
+c-12
+c-13
 
 [compute:children]
 compute_lenovo
@@ -34,7 +34,7 @@ controllers
 [storage]
 ds1
 ds2
-#mds1
+mds1
 mds2
 
 [mons:children]

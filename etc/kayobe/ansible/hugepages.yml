@@ -1,7 +1,7 @@
 ---
 - name: Configure compute hypervisors with performance optimisations
   hosts:
-    - compute_lenovo
+    - compute_lenovo,compute_dell
   roles:
     - name: stackhpc.linux.grubcmdline
       kernel_cmdline:
