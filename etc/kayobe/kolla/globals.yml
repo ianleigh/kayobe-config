@@ -7,3 +7,6 @@ octavia_auto_configure: "no"
 octavia_provider_drivers: "ovn:OVN provider"
 octavia_provider_agents: "ovn"
 enable_horizon_octavia: false
+# Enabling Ceph
+cinder_backend_ceph: true
+glance_backend_ceph: true
