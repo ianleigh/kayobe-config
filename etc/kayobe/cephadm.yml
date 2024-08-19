@@ -34,13 +34,13 @@ cephadm_keepalived_image: "{{ stackhpc_docker_registry if stackhpc_sync_ceph_ima
 cephadm_keepalived_image_tag: "2.1.5"
 
 # Ceph container image registry URL.
-cephadm_registry_url: "{{ stackhpc_docker_registry }}"
+# cephadm_registry_url: "{{ stackhpc_docker_registry }}"
 
 # Ceph container image registry username.
-cephadm_registry_username: "{{ stackhpc_docker_registry_username }}"
+# cephadm_registry_username: "{{ stackhpc_docker_registry_username }}"
 
 # Ceph container image registry password.
-cephadm_registry_password: "{{ stackhpc_docker_registry_password }}"
+# cephadm_registry_password: "{{ stackhpc_docker_registry_password }}"
 
 # Cephadm admin network interface.
 cephadm_admin_interface: "{{ admin_oc_net_name | net_interface }}"
@@ -72,9 +72,17 @@ cephadm_osd_spec:
     host_pattern: '*'
   spec:
     data_devices:
-      size: '2TB:'
-    db_devices:
-      size: ':2TB'
+      paths:
+        - /dev/mapper/mpatha
+        - /dev/mapper/mpathb
+        - /dev/mapper/mpathc
+        - /dev/mapper/mpathd
+        - /dev/mapper/mpathe
+        - /dev/mapper/mpathf
+        - /dev/mapper/mpathg
+        - /dev/mapper/mpathh
+        - /dev/mapper/mpathi
+        - /dev/mapper/mpathj
 
 # Additional arguments to pass to `cephadm bootstrap`.
 #cephadm_bootstrap_additional_parameters:
@@ -85,6 +93,11 @@ cephadm_osd_spec:
 # List of Ceph erasure coding profiles. See stackhpc.cephadm.ec_profiles role
 # for format.
 #cephadm_ec_profiles:
+cephadm_ec_profiles:
+  - name: ec_2_1_hdd
+    k: 2
+    m: 1
+    crush_device_class: hdd
 
 # List of Ceph CRUSH rules. See stackhpc.cephadm.crush_rules role for format.
 #cephadm_crush_rules:
@@ -95,18 +108,27 @@ cephadm_pools:
   - name: backups
     application: rbd
     state: present
+    pool_type: erasure
+    erasure_profile: ec_2_1_hdd
   - name: images
     application: rbd
     state: present
+    pool_type: erasure
+    erasure_profile: ec_2_1_hdd
   - name: volumes
     application: rbd
     state: present
+    pool_type: erasure
+    erasure_profile: ec_2_1_hdd
   - name: cephfs_data
     application: cephfs
     state: present
+    pool_type: erasure
+    erasure_profile: ec_2_1_hdd
   - name: cephfs_metadata
     application: cephfs
     state: present
+    size: 3
 
 # List of Cephx keys. See stackhpc.cephadm.keys role for format.
 #cephadm_keys:
@@ -114,13 +136,15 @@ cephadm_keys:
   - name: client.cinder
     caps:
       mon: "profile rbd"
-      osd: "profile rbd pool=volumes, profile rbd pool=vms, profile rbd-read-only pool=images"
-      mgr: "profile rbd pool=volumes, profile rbd pool=vms"
+      osd: "profile rbd pool=volumes, profile rbd-read-only pool=images"
+      mgr: "profile rbd pool=volumes"
+    state: present 
   - name: client.cinder-backup
     caps:
       mon: "profile rbd"
       osd: "profile rbd pool=volumes, profile rbd pool=backups"
       mgr: "profile rbd pool=volumes, profile rbd pool=backups"
+    state: present
   - name: client.glance
     caps:
       mon: "profile rbd"
