@@ -108,23 +108,21 @@ cephadm_pools:
   - name: backups
     application: rbd
     state: present
-    pool_type: erasure
-    erasure_profile: ec_2_1_hdd
+    size: 3
   - name: images
     application: rbd
     state: present
-    pool_type: erasure
-    erasure_profile: ec_2_1_hdd
+    size: 3
   - name: volumes
     application: rbd
     state: present
-    pool_type: erasure
-    erasure_profile: ec_2_1_hdd
+    size: 3
   - name: cephfs_data
     application: cephfs
     state: present
     pool_type: erasure
     erasure_profile: ec_2_1_hdd
+    allow_ec_overwrites: true
   - name: cephfs_metadata
     application: cephfs
     state: present
@@ -171,7 +169,7 @@ cephadm_commands_pre_extra:
  - "config set global ms_client_mode secure"
 cephadm_commands_post_default: "{{ ['mgr module enable prometheus'] if kolla_enable_prometheus_ceph_mgr_exporter | default(False) | bool else [] }}"
 cephadm_commands_post_extra:
-  - "fs new manila-cephfs cephfs_metadata cephfs_data"
+  - "fs new manila-cephfs cephfs_metadata cephfs_data --force"
   - "orch apply mds manila-cephfs"
 ###############################################################################
 # Kolla Ceph auto-configuration.
