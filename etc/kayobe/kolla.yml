@@ -358,8 +358,8 @@ kolla_enable_grafana: yes
 #kolla_enable_kuryr:
 #kolla_enable_loadbalancer:
 #kolla_enable_magnum:
-#kolla_enable_manila:
-#kolla_enable_manila_backend_cephfs_native:
+kolla_enable_manila: yes
+kolla_enable_manila_backend_cephfs_native: yes
 #kolla_enable_manila_backend_cephfs_nfs:
 #kolla_enable_manila_backend_generic:
 #kolla_enable_manila_backend_glusterfs_nfs:
