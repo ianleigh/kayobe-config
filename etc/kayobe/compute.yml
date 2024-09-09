@@ -68,6 +68,19 @@ compute_bootstrap_user: ileigh
 # format.
 #compute_lvm_groups:
 
+compute_lvm_groups:
+  - vgname: nova-compute
+    disks:
+      - "{{ compute_nova_disk }}"
+    create: true
+    lvnames:
+      - lvname: nova-compute-0
+        size: "100%FREE"
+        create: true
+        mount: true
+        filesystem: ext4
+        mntp: /var/lib/nova
+
 # Default list of compute volume groups. See mrlesmithjr.manage_lvm role for
 # format.
 #compute_lvm_groups_default:
