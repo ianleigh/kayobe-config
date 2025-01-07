@@ -11,8 +11,8 @@ c-1
 
 [compute_lenovo]
 c-2
-#c-3 OS on sdb
-#c-4 OS on sdb
+c-3
+c-4
 c-5
 c-6
 c-7
