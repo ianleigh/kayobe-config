@@ -65,11 +65,11 @@ cephadm_cluster_network: "{{ storage_mgmt_net_name | net_cidr }}"
 #cephadm_osd_devices:
 
 # Ceph OSD specification.
-cephadm_osd_spec:
+cephadm_osd_spec: |
   service_type: osd
   service_id: osd_spec_default
   placement:
-    host_pattern: '*'
+    host_pattern: 'ds[1-2]|mds[1-2]'
   spec:
     data_devices:
       paths:
@@ -83,6 +83,14 @@ cephadm_osd_spec:
         - /dev/mapper/mpathh
         - /dev/mapper/mpathi
         - /dev/mapper/mpathj
+  ---
+  service_type: osd
+  service_id: osd_spec_default
+  placement:
+    host_pattern: 'ds[3-8]'
+  spec:
+    data_devices:
+      size: '>15T'
 
 # Additional arguments to pass to `cephadm bootstrap`.
 #cephadm_bootstrap_additional_parameters:
@@ -94,9 +102,9 @@ cephadm_osd_spec:
 # for format.
 #cephadm_ec_profiles:
 cephadm_ec_profiles:
-  - name: ec_2_1_hdd
-    k: 2
-    m: 1
+  - name: ec_4_2_hdd
+    k: 4
+    m: 2
     crush_device_class: hdd
 
 # List of Ceph CRUSH rules. See stackhpc.cephadm.crush_rules role for format.
@@ -108,20 +116,26 @@ cephadm_pools:
   - name: backups
     application: rbd
     state: present
-    size: 3
+    pool_type: erasure
+    erasure_profile: ec_4_2_hdd
+    allow_ec_overwrites: true
   - name: images
     application: rbd
     state: present
-    size: 3
+    pool_type: erasure
+    erasure_profile: ec_4_2_hdd
+    allow_ec_overwrites: true
   - name: volumes
     application: rbd
     state: present
-    size: 3
+    pool_type: erasure
+    erasure_profile: ec_4_2_hdd
+    allow_ec_overwrites: true 
   - name: cephfs_data
     application: cephfs
     state: present
     pool_type: erasure
-    erasure_profile: ec_2_1_hdd
+    erasure_profile: ec_4_2_hdd
     allow_ec_overwrites: true
   - name: cephfs_metadata
     application: cephfs
