@@ -91,7 +91,9 @@ storage_mgmt_net_name: data
 # network configuration reference in the Kayobe documentation.
 
 prod_cidr: 192.168.10.0/24
-prod_gateway: 192.168.10.201
+# Gateway is set in group vars
+# so controllers are not confused
+# prod_gateway: 192.168.10.201
 
 # *.openstack.man.uksrc.org
 jbo_gateway: 130.88.9.125
