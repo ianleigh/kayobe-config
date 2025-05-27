@@ -31,11 +31,24 @@ compute_lenovo
 compute_dell
 controllers
 
-[storage]
+[storage_me5]
 ds1
 ds2
 mds1
 mds2
+
+[storage_r760]
+ds3
+ds4
+ds5
+ds6
+ds7
+ds8
+
+[storage]
+[storage:children]
+storage_me5
+storage_760xd2
 
 [mons:children]
 storage
