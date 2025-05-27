@@ -20,6 +20,10 @@ data_interface: ens3f0np0
 prod_bridge_ports:
   - ens9f0np0
 
+jbo_interface: breno8303
+jbo_bridge_ports:
+  - eno8303
+
 ##############################################################################
 # Dummy variable to allow Ansible to accept this file.
 workaround_ansible_issue_8743: yes
