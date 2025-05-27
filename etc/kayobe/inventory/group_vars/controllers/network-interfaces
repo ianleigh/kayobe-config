@@ -15,10 +15,10 @@
 # Further information on the available network attributes is provided in the
 # network configuration reference in the Kayobe documentation.
 
-prod_interface: brens9f0np0
-data_interface: ens3f0np0
+prod_interface: breno12399
+data_interface: ens2f0np0
 prod_bridge_ports:
-  - ens9f0np0
+  - eno12399
 
 jbo_interface: breno8303
 jbo_bridge_ports:
