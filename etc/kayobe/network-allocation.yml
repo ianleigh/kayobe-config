@@ -26,6 +26,8 @@ data_ips:
   srcseed: 192.168.100.201
 ipmi_ips:
   srcseed: 192.168.1.201
+jbo_ips:
+  srcseed: 130.88.9.201
 prod_ips:
   c-1: 192.168.10.1
   c-10: 192.168.10.10

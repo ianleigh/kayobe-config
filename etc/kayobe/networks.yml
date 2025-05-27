@@ -35,11 +35,14 @@ internal_net_name: data
 # containing one item, external_net_name.
 #external_net_names:
 external_net_names:
+# physnet1
 - prod
+# physnet2
+- jbo
 
 # Name of the network used to expose the public OpenStack API endpoints.
 #public_net_name:
-public_net_name: prod
+public_net_name: jbo
 
 # Name of the network used by Neutron to carry tenant overlay network traffic.
 #tunnel_net_name:
@@ -89,7 +92,12 @@ storage_mgmt_net_name: data
 
 prod_cidr: 192.168.10.0/24
 prod_gateway: 192.168.10.201
-prod_vip_address: 192.168.10.200
+
+# *.openstack.man.uksrc.org
+jbo_gateway: 130.88.9.125
+jbo_cidr: 130.88.9.0/24
+jbo_vip_address: 130.88.9.4
+jbo_fqdn: api.openstack.man.uksrc.org
 
 data_cidr: 192.168.100.0/24
 data_vip_address: 192.168.100.200
