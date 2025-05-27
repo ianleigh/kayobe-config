@@ -67,6 +67,9 @@ os_release: 9
 #kayobe_ansible_setup_gather_subset:
 
 selinux_do_reboot: true
+# Global maximum failure percentage. By default this is undefined, which is
+# equivalent to a value of 100.
+#kayobe_max_fail_percentage:
 
 ###############################################################################
 # Dummy variable to allow Ansible to accept this file.
