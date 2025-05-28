@@ -93,7 +93,7 @@ prod_cidr: 192.168.10.0/24
 # prod_gateway: 192.168.10.201
 
 # *.openstack.man.uksrc.org
-jbo_gateway: 130.88.9.125
+jbo_gateway: 130.88.9.250
 jbo_cidr: 130.88.9.0/24
 jbo_vip_address: 130.88.9.4
 jbo_fqdn: api.openstack.man.uksrc.org

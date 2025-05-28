@@ -69,7 +69,11 @@ cephadm_osd_spec: |
   service_type: osd
   service_id: osd_spec_default
   placement:
-    host_pattern: 'ds[1-2]|mds[1-2]'
+    hosts:
+      - ds1
+      - ds2
+      - mds1
+      - mds2
   spec:
     data_devices:
       paths:
@@ -87,7 +91,13 @@ cephadm_osd_spec: |
   service_type: osd
   service_id: osd_spec_default
   placement:
-    host_pattern: 'ds[3-8]'
+    hosts:
+      - ds3
+      - ds4
+      - ds5
+      - ds6
+      - ds7
+      - ds8
   spec:
     data_devices:
       size: '>15T'
