@@ -62,8 +62,6 @@
         name: stackhpc.hashicorp.vault
       vars:
         hashicorp_registry_url: "{{ overcloud_hashicorp_registry_url }}"
-        hashicorp_registry_username: "{{ overcloud_hashicorp_registry_username }}"
-        hashicorp_registry_password: "{{ overcloud_hashicorp_registry_password }}"
         consul_docker_image: "{{ overcloud_consul_docker_image }}"
         consul_docker_tag: "{{ overcloud_consul_docker_tag }}"
         vault_config_dir: /opt/kayobe/vault

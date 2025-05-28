@@ -121,7 +121,7 @@ stackhpc_common_firewalld_rules_template:
         state: disabled
       - service: ssh
         zone: public
-        state: disabled
+        state: enabled
     enabled: "{{ admin_oc_net_name | net_zone != 'public' }}"
 
 ###############################################################################
