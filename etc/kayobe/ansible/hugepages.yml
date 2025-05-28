@@ -1,0 +1,14 @@
+---
+- name: Configure compute hypervisors with performance optimisations
+  hosts:
+    - compute_lenovo,compute_dell
+  roles:
+    - name: stackhpc.linux.grubcmdline
+      kernel_cmdline:
+        - default_hugepagesz={{ perf_tuning_default_hugepagesz }}
+        - hugepagesz={{ perf_tuning_hugepagesz }}
+        - hugepages={{ perf_tuning_hugepages }}
+  handlers:
+    - name: reboot
+      debug:
+        msg: "please reboot"

@@ -1,0 +1,29 @@
+---
+- hosts: storage
+  become: True
+  gather_facts: False
+  tags:
+    - multipath
+  vars:
+    ansible_user: "{{ bootstrap_user }}"
+    # We can't assume that a virtualenv exists at this point, so use the system
+    # python interpreter.
+    ansible_python_interpreter: /usr/bin/python3
+  tasks:
+    - name: Ensure device-mapper-multipath package is installed
+      ansible.builtin.command:
+        cmd: "dnf install -y device-mapper-multipath"
+        creates: /usr/sbin/multipathd
+    - name: Ensure dm_multipath module is loaded
+      community.general.modprobe:
+        name: dm_multipath
+        state: present
+    - name: Create /etc/multipath.conf
+      ansible.builtin.command:
+        cmd: "mpathconf --enable --user_friendly_names n --option path_grouping_policy:multibus"
+        creates: /etc/multipath.conf
+    - name: Ensure multipathd is enabled and running
+      ansible.builtin.service:
+        name: multipathd
+        enabled: yes
+        state: started

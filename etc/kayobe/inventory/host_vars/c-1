@@ -1,0 +1,12 @@
+nova_cell_compute_provider_config:
+  meta:
+    schema_version: '1.0'
+  providers:
+    - identification:
+        name: $COMPUTE_NODE
+      traits:
+        additional:
+          - 'CUSTOM_GENERAL'
+nova_cpu_shared_set: 0-47,^0,^12,^24,^36
+nova_cpu_dedicated_set: ""
+nova_instance_datadir_volume: /var/lib/nova

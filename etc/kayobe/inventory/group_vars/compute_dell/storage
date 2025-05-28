@@ -1,0 +1,10 @@
+---
+compute_nova_disk: /dev/md0
+compute_mdadm_arrays:
+  - name: md0
+    devices:
+      - /dev/nvme2n1
+      - /dev/nvme3n1
+      - /dev/nvme4n1
+    level: '0'
+    state: present

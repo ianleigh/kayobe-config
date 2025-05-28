@@ -1,6 +1,6 @@
 ---
 ###############################################################################
-# Network interface definitions for the controller group.
+# Network interface definitions for the compute group.
 
 # NOTE: The content of this section is very deployment-specific, since it
 # depends on the names and types of networks in the deployment. It should
@@ -15,15 +15,10 @@
 # Further information on the available network attributes is provided in the
 # network configuration reference in the Kayobe documentation.
 
-prod_interface: breno12399
+prod_interface: eno12399np0
 data_interface: ens2f0np0
-prod_bridge_ports:
-  - eno12399
+prod_gateway: 192.168.10.201
 
-jbo_interface: breno8303
-jbo_bridge_ports:
-  - eno8303
-
-##############################################################################
+###############################################################################
 # Dummy variable to allow Ansible to accept this file.
 workaround_ansible_issue_8743: yes

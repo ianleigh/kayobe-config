@@ -175,6 +175,7 @@
 
 # Custom overcloud inventory containing a mapping from services to components.
 #kolla_overcloud_inventory_custom_services:
+kolla_overcloud_inventory_custom_services: "{{ lookup('template', kayobe_config_path ~ '/kolla/inventory/overcloud-service.j2') }}"
 
 # Full custom overcloud inventory contents. By default this will be the
 # concatenation of the top level, component, and service inventories.
@@ -217,7 +218,11 @@
 # kolla-ansible. If a variable name is not in this mapping the kayobe name is
 # used.
 #kolla_overcloud_inventory_pass_through_host_vars_map_extra:
-
+kolla_overcloud_inventory_pass_through_host_vars_extra:
+  - "nova_cpu_dedicated_set"
+  - "nova_cpu_shared_set"
+  - "nova_cell_compute_provider_config"
+  - "nova_instance_datadir_volume"
 # Dict mapping names of variables in
 # kolla_overcloud_inventory_pass_through_host_vars to the variable to use in
 # kolla-ansible. If a variable name is not in this mapping the kayobe name is
@@ -282,10 +287,10 @@
 #kolla_enable_ceilometer_ipmi:
 #kolla_enable_ceilometer_prometheus_pushgateway:
 #kolla_enable_cells:
-#kolla_enable_central_logging:
+kolla_enable_central_logging: yes
 #kolla_enable_ceph_rgw:
 #kolla_enable_ceph_rgw_loadbalancer:
-#kolla_enable_cinder:
+kolla_enable_cinder: yes
 #kolla_enable_cinder_backend_hnas_nfs:
 #kolla_enable_cinder_backend_iscsi:
 #kolla_enable_cinder_backend_lvm:
@@ -312,7 +317,7 @@
 #kolla_enable_glance_image_cache:
 #kolla_enable_gnocchi:
 #kolla_enable_gnocchi_statsd:
-#kolla_enable_grafana:
+kolla_enable_grafana: yes
 #kolla_enable_grafana_external:
 #kolla_enable_hacluster:
 #kolla_enable_haproxy:
@@ -353,8 +358,8 @@
 #kolla_enable_kuryr:
 #kolla_enable_loadbalancer:
 #kolla_enable_magnum:
-#kolla_enable_manila:
-#kolla_enable_manila_backend_cephfs_native:
+kolla_enable_manila: yes
+kolla_enable_manila_backend_cephfs_native: yes
 #kolla_enable_manila_backend_cephfs_nfs:
 #kolla_enable_manila_backend_generic:
 #kolla_enable_manila_backend_glusterfs_nfs:
@@ -391,7 +396,7 @@
 #kolla_enable_nova_libvirt_container:
 #kolla_enable_nova_serialconsole_proxy:
 #kolla_enable_nova_ssh:
-#kolla_enable_octavia:
+kolla_enable_octavia: yes
 #kolla_enable_octavia_driver_agent:
 #kolla_enable_opensearch:
 #kolla_enable_opensearch_dashboards:
@@ -400,10 +405,10 @@
 #kolla_enable_openvswitch:
 #kolla_enable_osprofiler:
 #kolla_enable_outward_rabbitmq:
-#kolla_enable_ovn:
+kolla_enable_ovn: yes
 #kolla_enable_ovs_dpdk:
 #kolla_enable_placement:
-#kolla_enable_prometheus:
+kolla_enable_prometheus: yes
 #kolla_enable_prometheus_alertmanager:
 #kolla_enable_prometheus_alertmanager_external:
 #kolla_enable_prometheus_blackbox_exporter:
