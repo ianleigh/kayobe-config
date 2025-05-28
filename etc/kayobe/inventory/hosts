@@ -6,13 +6,14 @@ localhost ansible_connection=local
 #srcseed
 
 [controllers]
-#srcseed
-c-1
+srcseed
+#c-1
 
 [compute_lenovo]
+c-1
 c-2
-c-3
-c-4
+# c-3 sdb needs fixing
+# c-4 sdb needs fixing
 c-5
 c-6
 c-7
@@ -29,7 +30,6 @@ c-13
 [compute:children]
 compute_lenovo
 compute_dell
-controllers
 
 [storage_me5]
 ds1

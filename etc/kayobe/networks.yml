@@ -35,9 +35,6 @@ internal_net_name: data
 # containing one item, external_net_name.
 #external_net_names:
 external_net_names:
-# physnet1
-- prod
-# physnet2
 - jbo
 
 # Name of the network used to expose the public OpenStack API endpoints.
