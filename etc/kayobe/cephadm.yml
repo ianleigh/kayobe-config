@@ -67,29 +67,7 @@ cephadm_cluster_network: "{{ storage_mgmt_net_name | net_cidr }}"
 # Ceph OSD specification.
 cephadm_osd_spec: |
   service_type: osd
-  service_id: osd_spec_default
-  placement:
-    hosts:
-      - ds1
-      - ds2
-      - mds1
-      - mds2
-  spec:
-    data_devices:
-      paths:
-        - /dev/mapper/mpatha
-        - /dev/mapper/mpathb
-        - /dev/mapper/mpathc
-        - /dev/mapper/mpathd
-        - /dev/mapper/mpathe
-        - /dev/mapper/mpathf
-        - /dev/mapper/mpathg
-        - /dev/mapper/mpathh
-        - /dev/mapper/mpathi
-        - /dev/mapper/mpathj
-  ---
-  service_type: osd
-  service_id: osd_spec_default
+  service_id: osd_spec_r760
   placement:
     hosts:
       - ds3
@@ -100,7 +78,29 @@ cephadm_osd_spec: |
       - ds8
   spec:
     data_devices:
-      size: '>15T'
+      size: '15TB:'
+#  service_type: osd
+#  service_id: osd_spec_me5
+#  placement:
+#    hosts:
+#      - ds1
+#      - ds2
+#      - mds1
+#      - mds2
+#  spec:
+#    data_devices:
+#      paths:
+#        - /dev/mapper/mpatha
+#        - /dev/mapper/mpathb
+#        - /dev/mapper/mpathc
+#        - /dev/mapper/mpathd
+#        - /dev/mapper/mpathe
+#        - /dev/mapper/mpathf
+#        - /dev/mapper/mpathg
+#        - /dev/mapper/mpathh
+#        - /dev/mapper/mpathi
+#        - /dev/mapper/mpathj
+#  ---
 
 # Additional arguments to pass to `cephadm bootstrap`.
 #cephadm_bootstrap_additional_parameters:
@@ -123,24 +123,33 @@ cephadm_ec_profiles:
 # List of Ceph pools. See stackhpc.cephadm.pools role for format.
 #cephadm_pools:
 cephadm_pools:
+  - name: backups-data
+    application: rbd
+    state: present
+    pool_type: erasure
+    erasure_profile: ec_4_2_hdd
+    allow_ec_overwrites: true
   - name: backups
+    application: rbd
+    state: present
+  - name: images-data
     application: rbd
     state: present
     pool_type: erasure
     erasure_profile: ec_4_2_hdd
     allow_ec_overwrites: true
   - name: images
-    application: rbd
+    applicaton: rbd
     state: present
-    pool_type: erasure
-    erasure_profile: ec_4_2_hdd
-    allow_ec_overwrites: true
-  - name: volumes
+  - name: volumes-data
     application: rbd
     state: present
     pool_type: erasure
     erasure_profile: ec_4_2_hdd
     allow_ec_overwrites: true 
+  - name: volumes
+    application: rbd
+    state: present
   - name: cephfs_data
     application: cephfs
     state: present
@@ -158,20 +167,20 @@ cephadm_keys:
   - name: client.cinder
     caps:
       mon: "profile rbd"
-      osd: "profile rbd pool=volumes, profile rbd-read-only pool=images"
-      mgr: "profile rbd pool=volumes"
+      osd: "profile rbd pool=volumes, profile rbd-read-only pool=images, profile rbd pool=volumes-data, profile rbd-read-only pool=images-data"
+      mgr: "profile rbd pool=volumes, profile rbd pool=volumes-data"
     state: present 
   - name: client.cinder-backup
     caps:
       mon: "profile rbd"
-      osd: "profile rbd pool=volumes, profile rbd pool=backups"
-      mgr: "profile rbd pool=volumes, profile rbd pool=backups"
+      osd: "profile rbd pool=volumes, profile rbd pool=backups, profile rbd pool=volumes-data, profile rbd pool=backups-data"
+      mgr: "profile rbd pool=volumes, profile rbd pool=backups, profile rbd pool=volumes-data, profile rbd pool=backups-data"
     state: present
   - name: client.glance
     caps:
       mon: "profile rbd"
-      osd: "profile rbd pool=images"
-      mgr: "profile rbd pool=images"
+      osd: "profile rbd pool=images, profile rbd pool=images-data"
+      mgr: "profile rbd pool=images, profile rbd pool=images-data"
     state: present
   - name: client.manila
     caps:

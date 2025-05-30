@@ -3,7 +3,7 @@
 localhost ansible_connection=local
 
 [seed]
-srcseed
+# srcseed
 
 [controllers]
 srcseed
@@ -50,11 +50,14 @@ ds8
 storage_me5
 storage_r760
 
-[mons:children]
-storage
+[mons]
+ds1
+mds1
+mds2
+
 
 [mgrs:children]
-storage
+mons
 
 [osds:children]
 storage

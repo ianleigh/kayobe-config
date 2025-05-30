@@ -3,6 +3,6 @@ collections:
   - name: stackhpc.linux
     version: 1.2.3
   - name: stackhpc.cephadm
-    version: 1.16.0
+    version: 1.19.1
   - name: stackhpc.hashicorp
     version: 2.6.1

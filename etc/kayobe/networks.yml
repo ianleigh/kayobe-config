@@ -97,6 +97,8 @@ jbo_gateway: 130.88.9.250
 jbo_cidr: 130.88.9.0/24
 jbo_vip_address: 130.88.9.4
 jbo_fqdn: api.openstack.man.uksrc.org
+jbo_allocation_pool_start: 130.88.9.15
+jbo_allocation_pool_end: 130.88.9.131
 
 data_cidr: 192.168.100.0/24
 data_vip_address: 192.168.100.200
