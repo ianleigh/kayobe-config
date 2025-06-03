@@ -139,7 +139,7 @@ cephadm_pools:
     erasure_profile: ec_4_2_hdd
     allow_ec_overwrites: true
   - name: images
-    applicaton: rbd
+    application: rbd
     state: present
   - name: volumes-data
     application: rbd
