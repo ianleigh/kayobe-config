@@ -79,28 +79,18 @@ cephadm_osd_spec: |
   spec:
     data_devices:
       size: '15TB:'
-#  service_type: osd
-#  service_id: osd_spec_me5
-#  placement:
-#    hosts:
-#      - ds1
-#      - ds2
-#      - mds1
-#      - mds2
-#  spec:
-#    data_devices:
-#      paths:
-#        - /dev/mapper/mpatha
-#        - /dev/mapper/mpathb
-#        - /dev/mapper/mpathc
-#        - /dev/mapper/mpathd
-#        - /dev/mapper/mpathe
-#        - /dev/mapper/mpathf
-#        - /dev/mapper/mpathg
-#        - /dev/mapper/mpathh
-#        - /dev/mapper/mpathi
-#        - /dev/mapper/mpathj
-#  ---
+  ---
+  service_type: osd
+  service_id: osd_spec_ssd_me5
+  placement:
+    hosts:
+      - ds1
+      - ds2
+      - mds1
+      - mds2
+  spec:
+    data_devices:
+      size: '890GB:900GB'
 
 # Additional arguments to pass to `cephadm bootstrap`.
 #cephadm_bootstrap_additional_parameters:
