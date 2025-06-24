@@ -10,3 +10,15 @@ enable_horizon_octavia: false
 # Enabling Ceph
 cinder_backend_ceph: true
 glance_backend_ceph: true
+# Enabling SKA-IAM
+keystone_identity_providers:
+  - name: "ska-iam"
+    openstack_domain: "ska"
+    protocol: "openid"
+    identifier: "https://ska-iam.stfc.ac.uk/"
+    public_name: "Authenticate via SKA-IAM"
+    attribute_mapping: "ska_mapping"
+    metadata_folder: "{{ kayobe_config_path }}/jbo-idp-conf/idp"
+keystone_identity_mappings:
+- name: "ska_mapping"
+  file: "{{ kayobe_config_path }}/kolla/config/keystone/ska_identity-mappings.json"
