@@ -1,1 +1,64 @@
-[]
+[
+    {
+        "local": [
+            {
+                "user": {
+                    "name": "{0}",
+                    "email": "{1}"
+                },
+                "group": {
+                    "domain": {
+                    "name": "ska"
+                    },
+                    "name": "ska-prototyping-teal-users"
+                }
+            }
+        ],
+        "remote": [
+            {
+                "type": "OIDC-preferred_username"
+            },
+            {
+                "type": "OIDC-email"
+            },
+            {
+                "regex": true,
+                "type": "OIDC-groups",
+                "any_one_of": [
+                    "prototyping-groups/teal"
+                ]
+            }
+        ]
+    },
+    {
+        "local": [
+            {
+                "user": {
+                    "name": "{0}",
+                    "email": "{1}"
+                },
+                "group": {
+                    "domain": {
+                    "name": "ska"
+                    },
+                    "name": "ska-teal-lofarint-users"
+                }
+            }
+        ],
+        "remote": [
+            {
+                "type": "OIDC-preferred_username"
+            },
+            {
+                "type": "OIDC-email"
+            },
+            {
+                "regex": true,
+                "type": "OIDC-groups",
+                "any_one_of": [
+                    "prototyping-groups/teal/Lofarint"
+                ]
+            }
+        ]
+    }
+]
