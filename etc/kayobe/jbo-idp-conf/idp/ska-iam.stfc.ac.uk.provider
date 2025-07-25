@@ -1,5 +1,5 @@
 {
-  "request_parameter_supported": true,
+"request_parameter_supported": true,
   "introspection_endpoint": "https://ska-iam.stfc.ac.uk/introspect",
   "claims_parameter_supported": true,
   "scim_endpoint": "https://ska-iam.stfc.ac.uk/scim",
