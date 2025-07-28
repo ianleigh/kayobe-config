@@ -22,5 +22,4 @@ keystone_identity_providers:
 keystone_identity_mappings:
 - name: "ska_mapping"
   file: "{{ kayobe_config_path }}/kolla/config/keystone/ska_identity-mappings.json"
-  
 kolla_enable_tls_external: true
