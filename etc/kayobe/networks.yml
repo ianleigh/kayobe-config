@@ -36,6 +36,7 @@ internal_net_name: data
 #external_net_names:
 external_net_names:
 - jbo
+- data
 
 # Name of the network used to expose the public OpenStack API endpoints.
 #public_net_name:
