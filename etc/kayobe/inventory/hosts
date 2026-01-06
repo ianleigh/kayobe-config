@@ -27,6 +27,22 @@ c-10
 c-12
 c-13
 
+[compute_flavor_general]
+c-1
+
+[compute_flavor_sr650]
+c-2
+c-5
+c-6
+c-7
+
+[compute_flavor_r660]
+c-8
+c-9
+c-10
+c-12
+c-13
+
 [compute:children]
 compute_lenovo
 compute_dell
