@@ -8,7 +8,14 @@
         - default_hugepagesz={{ perf_tuning_default_hugepagesz }}
         - hugepagesz={{ perf_tuning_hugepagesz }}
         - hugepages={{ perf_tuning_hugepages }}
+      when: perf_tuning_hugepages is defined
+    - name: stackhpc.linux.grubcmdline
+      kernel_cmdline_remove:
+        - default_hugepagesz
+        - hugepagesz
+        - hugepages
+      when: perf_tuning_hugepages is not defined
   handlers:
     - name: reboot
       debug:
-        msg: "please reboot"
+        msg: "Please reboot {{ inventory_hostname }}"
