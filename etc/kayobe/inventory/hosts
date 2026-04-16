@@ -17,7 +17,7 @@ c-4
 c-5
 c-6
 c-7
-# c-14 networking broken
+c-14
 
 [compute_dell]
 c-8
@@ -37,6 +37,7 @@ c-4
 c-5
 c-6
 c-7
+c-14
 
 [compute_flavor_r660]
 c-8
