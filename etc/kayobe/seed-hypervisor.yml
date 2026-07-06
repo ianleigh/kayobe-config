@@ -3,7 +3,8 @@
 # Seed hypervisor node configuration.
 
 # User with which to access the seed hypervisor via SSH during bootstrap, in
-# order to setup the Kayobe user account. Default is {{ os_distribution }}.
+# order to setup the Kayobe user account. Default is 'cloud-user' if
+# os_distribution is set to centos, otherwise 'os_distribution'.
 #seed_hypervisor_bootstrap_user:
 
 ###############################################################################
@@ -134,6 +135,13 @@
 # - permanent: true
 # - state: enabled
 #seed_hypervisor_firewalld_rules:
+
+###############################################################################
+# Seed Hypervisor node swap configuration.
+
+# List of swap devices. Each item is a dict containing a 'device' item. Default
+# is an empty list.
+# seed_hypervisor_swap:
 
 ###############################################################################
 # Dummy variable to allow Ansible to accept this file.

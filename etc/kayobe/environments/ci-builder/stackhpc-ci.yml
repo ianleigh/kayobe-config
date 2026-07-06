@@ -1,0 +1,118 @@
+---
+###############################################################################
+# Kolla configuration.
+
+# Docker namespace to use for Kolla images. Default is 'kolla'.
+kolla_docker_namespace: stackhpc-dev
+
+# Kolla feature flag configuration.
+kolla_enable_barbican: true
+kolla_enable_blazar: true
+kolla_enable_caso: true
+kolla_enable_central_logging: true
+kolla_enable_cinder: true
+kolla_enable_cloudkitty: true
+kolla_enable_designate: true
+kolla_enable_etcd: true
+kolla_enable_grafana: true
+kolla_enable_heat: true
+kolla_enable_influxdb: true
+kolla_enable_ironic: true
+kolla_enable_iscsid: true
+kolla_enable_letsencrypt: true
+kolla_enable_magnum: true
+kolla_enable_manila: true
+kolla_enable_mariabackup: true
+kolla_enable_neutron_bgp_dragent: true
+kolla_enable_neutron_mlnx: true
+kolla_enable_neutron_sriov: true
+kolla_enable_octavia: true
+kolla_enable_opensearch: true
+kolla_enable_prometheus: true
+kolla_enable_redis: true
+kolla_build_neutron_ovs: true
+
+###############################################################################
+# StackHPC configuration.
+
+# Host and port of a package repository mirror.
+# Build against the development Pulp service repositories.
+# Use Ark's package repositories to install packages.
+stackhpc_repo_mirror_auth_proxy_enabled: true
+stackhpc_repo_mirror_url: "{{ stackhpc_repo_mirror_auth_proxy_url if stackhpc_repo_mirror_auth_proxy_enabled | bool else stackhpc_release_pulp_url }}"
+stackhpc_repo_mirror_username: "skc-ci-builder-reader-caracal"
+stackhpc_repo_mirror_password: !vault |
+  $ANSIBLE_VAULT;1.1;AES256
+  64663534323334386635306339313431616237633661326530396436396339346339373838636433
+  6531316638333138633536623062303432356366353962370a333238653830626264373732643432
+  34313763343830353136383131303636653235646337663830383733633832363735336163633034
+  3732636136633364660a623961613934643761663437323132656361666262376439616461376637
+  65343938306332353163346233666135646261313131363638313131323239376235
+
+# Build against released Pulp repository versions.
+stackhpc_repo_grafana_version: "{{ stackhpc_pulp_repo_grafana_version }}"
+stackhpc_repo_rhel9_rabbitmq_erlang_version: "{{ stackhpc_pulp_repo_multiarch_rhel9_rabbitmq_erlang_version }}"
+stackhpc_repo_rhel9_rabbitmq_erlang_26_version: "{{ stackhpc_pulp_repo_multiarch_rhel9_rabbitmq_erlang_26_version }}"
+stackhpc_repo_rhel9_rabbitmq_erlang_27_version: "{{ stackhpc_pulp_repo_multiarch_rhel9_rabbitmq_erlang_27_version }}"
+stackhpc_repo_rhel9_rabbitmq_server_version: "{{ stackhpc_pulp_repo_rhel9_rabbitmq_server_version }}"
+stackhpc_repo_ubuntu_jammy_version: "{{ stackhpc_pulp_repo_ubuntu_jammy_version }}"
+stackhpc_repo_ubuntu_jammy_security_version: "{{ stackhpc_pulp_repo_ubuntu_jammy_security_version }}"
+stackhpc_repo_ubuntu_jammy_cve_2024_6387_version: ""
+stackhpc_repo_ubuntu_cloud_archive_version: "{{ stackhpc_pulp_repo_ubuntu_cloud_archive_version }}"
+stackhpc_repo_docker_ce_ubuntu_jammy_version: "{{ stackhpc_pulp_repo_docker_ce_ubuntu_jammy_version }}"
+stackhpc_repo_ubuntu_noble_version: "{{ stackhpc_pulp_repo_ubuntu_noble_version }}"
+stackhpc_repo_ubuntu_noble_security_version: "{{ stackhpc_pulp_repo_ubuntu_noble_security_version }}"
+stackhpc_repo_docker_ce_ubuntu_noble_version: "{{ stackhpc_pulp_repo_docker_ce_ubuntu_noble_version }}"
+stackhpc_repo_ceph_reef_debian_version: "{{ stackhpc_pulp_repo_ceph_reef_debian_version }}"
+stackhpc_repo_centos_stream_9_nfv_openvswitch_version: "{{ stackhpc_pulp_repo_multiarch_centos_stream_9_nfv_openvswitch_version }}"
+stackhpc_repo_centos_stream_9_openstack_caracal_version: "{{ stackhpc_pulp_repo_multiarch_centos_stream_9_openstack_caracal_version }}"
+stackhpc_repo_centos_stream_9_opstools_version: "{{ stackhpc_pulp_repo_multiarch_centos_stream_9_opstools_version }}"
+stackhpc_repo_centos_stream_9_storage_ceph_reef_version: "{{ stackhpc_pulp_repo_multiarch_centos_stream_9_storage_ceph_reef_version }}"
+stackhpc_repo_centos_stream_9_docker_version: "{{ stackhpc_pulp_repo_multiarch_centos_stream_9_docker_version }}"
+stackhpc_repo_rhel_9_treasuredata_5_version: "{{ stackhpc_pulp_repo_multiarch_rhel_9_treasuredata_5_version }}"
+stackhpc_repo_rhel_9_mariadb_10_11_version: "{{ stackhpc_pulp_repo_multiarch_rhel_9_mariadb_10_11_version }}"
+stackhpc_repo_rhel_9_influxdb_version: "{{ stackhpc_pulp_repo_multiarch_rhel_9_influxdb_version }}"
+stackhpc_repo_epel_9_version: "{{ stackhpc_pulp_repo_multiarch_epel_9_version }}"
+stackhpc_repo_opensearch_2_x_version: "{{ stackhpc_pulp_repo_opensearch_2_x_version }}"
+stackhpc_repo_opensearch_dashboards_2_x_version: "{{ stackhpc_pulp_repo_opensearch_dashboards_2_x_version }}"
+## Use derived vars from etc/kayobe/pulp.yml to switch between
+## minor Rocky versions using stackhpc_pulp_repo_rocky_x_minor_version
+stackhpc_repo_rocky_9_baseos_version: "{{ stackhpc_pulp_repo_rocky_9_baseos_version }}"
+stackhpc_repo_rocky_9_appstream_version: "{{ stackhpc_pulp_repo_rocky_9_appstream_version }}"
+stackhpc_repo_rocky_9_extras_version: "{{ stackhpc_pulp_repo_rocky_9_extras_version }}"
+stackhpc_repo_rocky_9_crb_version: "{{ stackhpc_pulp_repo_rocky_9_crb_version }}"
+stackhpc_repo_rocky_9_highavailability_version: "{{ stackhpc_pulp_repo_rocky_9_highavailability_version }}"
+stackhpc_repo_rocky_9_sig_security_common_version: "{{ stackhpc_pulp_repo_multiarch_rocky_9_sig_security_common_version }}"
+stackhpc_repo_rhel9_doca_version: "{{ stackhpc_pulp_repo_rhel9_doca_version }}"
+
+# Rocky-and-CI-specific Pulp urls
+stackhpc_include_os_minor_version_in_repo_url: true
+
+# Host and port of container registry.
+# Push built images to the Ark registry.
+stackhpc_docker_registry: "{{ stackhpc_release_pulp_url | regex_replace('^https?://', '') }}"
+
+# Username and password of container registry.
+stackhpc_docker_registry_username: "release-train-ci"
+stackhpc_docker_registry_password: !vault |
+  $ANSIBLE_VAULT;1.1;AES256
+  62653437333237376336336264366133326434326333326332346561313837306462396163343962
+  3565316433336436366630393865383030623732313765330a333962633233613965303636333939
+  61323663383139303332636266643766343961306234316532663533616132303335366139636137
+  6263313063363636360a386464363933363263613365373533643036333730616532636264633338
+  39383762313638303835666235663864653938306339663235356538666261653638
+
+# Username and password of the overcloud host image repository.
+stackhpc_release_pulp_username: "{{ stackhpc_docker_registry_username }}"
+stackhpc_release_pulp_password: "{{ stackhpc_docker_registry_password }}"
+
+# Build during IPA builder workflow
+ipa_build_images: true
+ipa_build_dib_env_extra:
+  DISTRO_NAME: "{{ ipa_ci_builder_distribution | default('ubuntu') }}"
+  DIB_RELEASE: "{{ ipa_ci_builder_release | default('jammy') }}"
+
+# Ensure Ark repos are disabled during CI runs, this is due to
+# builder being a member of the 'overcloud' group for IPA builds.
+stackhpc_repos_enabled: false
+enable_docker_repo: true

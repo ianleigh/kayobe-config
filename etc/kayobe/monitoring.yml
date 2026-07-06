@@ -3,7 +3,8 @@
 # Monitoring node configuration.
 
 # User with which to access the monitoring nodes via SSH during bootstrap, in
-# order to setup the Kayobe user account.
+# order to setup the Kayobe user account. Default is 'cloud-user' if
+# os_distribution is set to centos, otherwise 'os_distribution'.
 #monitoring_bootstrap_user:
 
 ###############################################################################
@@ -115,6 +116,13 @@
 # - permanent: true
 # - state: enabled
 #monitoring_firewalld_rules:
+
+###############################################################################
+# Monitoring node swap configuration.
+
+# List of swap devices. Each item is a dict containing a 'device' item. Default
+# is an empty list.
+# monitoring_swap:
 
 ###############################################################################
 # Dummy variable to allow Ansible to accept this file.

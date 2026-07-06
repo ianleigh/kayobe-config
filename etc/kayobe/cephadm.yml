@@ -2,12 +2,12 @@
 ###############################################################################
 # Cephadm deployment configuration.
 
-# Ceph release name.
-cephadm_ceph_release: "reef"
-
 # TODO placeholders
 stackhpc_docker_registry: ""
 stackhpc_sync_ceph_images: false
+
+# Ceph release name.
+cephadm_ceph_release: "{{ 'squid' if os_release == 'noble' else 'reef' }}"
 
 # Ceph FSID.
 #cephadm_fsid:
@@ -16,10 +16,10 @@ stackhpc_sync_ceph_images: false
 cephadm_image: "{{ stackhpc_docker_registry if stackhpc_sync_ceph_images | bool else 'quay.io' }}/ceph/ceph:{{ cephadm_image_tag }}"
 
 # Ceph container image tag.
-cephadm_image_tag: "v18.2.7"
+cephadm_image_tag: "{{ 'v19.2.3' if cephadm_ceph_release == 'squid' else 'v18.2.7' }}"
 
-# Ceph custom repo workaround for Ubuntu Jammy as there are no official ceph repos for jammy.
-cephadm_custom_repos: "{{ ansible_facts['distribution_release'] == 'jammy' }}"
+# Ceph custom repo workaround for Ubuntu as there are no official ceph repos for Ubuntu Jammy and Noble.
+cephadm_custom_repos: "{{ ansible_facts['distribution'] == 'Ubuntu' }}"
 
 # HAProxy container image.
 cephadm_haproxy_image: "{{ stackhpc_docker_registry if stackhpc_sync_ceph_images | bool else 'quay.io' }}/ceph/haproxy:{{ cephadm_haproxy_image_tag }}"
@@ -34,13 +34,13 @@ cephadm_keepalived_image: "{{ stackhpc_docker_registry if stackhpc_sync_ceph_ima
 cephadm_keepalived_image_tag: "2.2.4"
 
 # Ceph container image registry URL.
-# cephadm_registry_url: "{{ stackhpc_docker_registry }}"
+cephadm_registry_url: "{{ stackhpc_docker_registry }}"
 
 # Ceph container image registry username.
-# cephadm_registry_username: "{{ stackhpc_docker_registry_username }}"
+cephadm_registry_username: "{{ stackhpc_docker_registry_username }}"
 
 # Ceph container image registry password.
-# cephadm_registry_password: "{{ stackhpc_docker_registry_password }}"
+cephadm_registry_password: "{{ stackhpc_docker_registry_password }}"
 
 # Cephadm admin network interface.
 cephadm_admin_interface: "{{ admin_oc_net_name | net_interface }}"
@@ -65,6 +65,7 @@ cephadm_cluster_network: "{{ storage_mgmt_net_name | net_cidr }}"
 #cephadm_osd_devices:
 
 # Ceph OSD specification.
+#cephadm_osd_spec:
 cephadm_osd_spec: |
   service_type: osd
   service_id: osd_spec_r760
@@ -190,14 +191,17 @@ cephadm_commands_pre: "{{ cephadm_commands_pre_default + cephadm_commands_pre_ex
 cephadm_commands_post: "{{ cephadm_commands_post_default + cephadm_commands_post_extra }}"
 
 cephadm_commands_pre_default: []
+
 cephadm_commands_pre_extra:
  - "config set global ms_cluster_mode secure"
  - "config set global ms_service_mode secure"
  - "config set global ms_client_mode secure"
+
 cephadm_commands_post_default: "{{ ['mgr module enable prometheus'] if kolla_enable_prometheus_ceph_mgr_exporter | default(False) | bool else [] }}"
 cephadm_commands_post_extra:
   - "fs new manila-cephfs cephfs_metadata cephfs_data --force"
   - "orch apply mds manila-cephfs"
+
 ###############################################################################
 # Kolla Ceph auto-configuration.
 
@@ -239,3 +243,6 @@ kolla_ceph_manila_required: "{{ kolla_enable_manila | bool }}"
 
 # Whether to generate Ceph configuration for Nova.
 kolla_ceph_nova_required: "{{ kolla_enable_nova | bool }}"
+
+# A (multiline) string to append to all Ceph configuration files.
+#kolla_ceph_conf_append:
