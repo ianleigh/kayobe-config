@@ -70,12 +70,18 @@ cephadm_osd_spec: |
   service_id: osd_spec_r760
   placement:
     hosts:
-      - ds3
-      - ds4
-      - ds5
-      - ds6
-      - ds7
-      - ds8
+      - ceph-hdd-01
+      - ceph-hdd-02
+      - ceph-hdd-03
+      - ceph-hdd-04
+      - ceph-hdd-05
+      - ceph-hdd-06
+      - ceph-hdd-07
+      - ceph-hdd-08
+      - ceph-hdd-09
+      - ceph-hdd-10
+      - ceph-hdd-11
+      - ceph-hdd-12
   spec:
     data_devices:
       size: '15TB:'
@@ -84,8 +90,8 @@ cephadm_osd_spec: |
   service_id: osd_spec_ssd_me5
   placement:
     hosts:
-      - mds1
-      - mds2
+      - ceph-mds-01
+      - ceph-mds-02
   spec:
     data_devices:
       size: '890GB:900GB'

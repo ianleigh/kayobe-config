@@ -6,8 +6,17 @@ localhost ansible_connection=local
 # srcseed
 
 [controllers]
-srcseed
-#c-1
+[controllers:children]
+controllers_t620
+controllers_r650
+
+[controllers_t620]
+ctl-t620-01
+ctl-t620-02
+ctl-t620-03
+
+[controllers_r650]
+ctl-r650-01
 
 [compute_lenovo]
 c-1
@@ -17,7 +26,7 @@ c-4
 c-5
 c-6
 c-7
-# c-14 wrong 100gbs NIC
+c-14
 
 [compute_dell]
 c-8
@@ -37,7 +46,7 @@ c-4
 c-5
 c-6
 c-7
-# c-14 wrong 100gbs NIC
+c-14
 
 [compute_flavor_r660]
 c-8
@@ -52,27 +61,35 @@ compute_lenovo
 compute_dell
 
 [storage_me5]
-mds1
-mds2
+ceph-mds-01
+ceph-mds-02
 
-[storage_r760]
-ds3
-ds4
-ds5
-ds6
-ds7
-ds8
+[storage_r760_1]
+ceph-hdd-03
+ceph-hdd-04
+ceph-hdd-05
+ceph-hdd-06
+ceph-hdd-07
+ceph-hdd-08
+
+[storage_r760_2]
+ceph-hdd-01
+ceph-hdd-02
+ceph-hdd-09
+ceph-hdd-10
+ceph-hdd-11
+ceph-hdd-12
 
 [storage]
 [storage:children]
 storage_me5
-storage_r760
+storage_r760_1
+storage_r760_2
 
 [mons]
-ds1
-mds1
-mds2
-
+ceph-adm-01
+ceph-adm-02
+ceph-mds-01
 
 [mgrs:children]
 mons
