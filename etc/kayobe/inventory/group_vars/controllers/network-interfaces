@@ -15,15 +15,9 @@
 # Further information on the available network attributes is provided in the
 # network configuration reference in the Kayobe documentation.
 
-prod_interface: eno12399
+prod_interface: enp65s0
 
-data_interface: brens2f0np0
-data_bridge_ports: 
-  - ens2f0np0
-
-jbo_interface: breno8303
-jbo_bridge_ports:
-  - eno8303
+jbo_interface: eno2
 
 ##############################################################################
 # Dummy variable to allow Ansible to accept this file.

@@ -3,20 +3,12 @@
 localhost ansible_connection=local
 
 [seed]
-# srcseed
+srcseed
 
 [controllers]
-[controllers:children]
-controllers_t620
-controllers_r650
-
-[controllers_t620]
 ctl-t620-01
 ctl-t620-02
 ctl-t620-03
-
-[controllers_r650]
-ctl-r650-01
 
 [compute_lenovo]
 c-1
@@ -39,7 +31,7 @@ c-13
 [compute_flavor_general]
 c-1
 
-[compute_flavor_sr650]
+[compute_flavor_sr650v2]
 c-2
 c-3
 c-4
@@ -48,7 +40,7 @@ c-6
 c-7
 c-14
 
-[compute_flavor_r660]
+[compute_flavor_r660_1]
 c-8
 c-9
 c-10
@@ -75,7 +67,7 @@ ceph-hdd-08
 [storage_r760_2]
 ceph-hdd-01
 ceph-hdd-02
-ceph-hdd-09
+# ceph-hdd-09 no route to host
 ceph-hdd-10
 ceph-hdd-11
 ceph-hdd-12
