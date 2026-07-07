@@ -11,42 +11,42 @@ ctl-t620-02
 ctl-t620-03
 
 [compute_lenovo]
-c-1
-c-2
-c-3
-c-4
-c-5
-c-6
-c-7
-c-14
+c-sr650v2-01
+c-sr650v2-02
+c-sr650v2-03
+c-sr650v2-04
+c-sr650v2-05
+c-sr650v2-06
+c-sr650v2-07
+c-sr650v2-08
 
 [compute_dell]
-c-8
-c-9
-c-10
-c-11
-c-12
-c-13
+c-r660-01
+c-r660-02
+c-r660-03
+c-r660-04
+c-r660-05
+c-r660-06
 
 [compute_flavor_general]
-c-1
+c-sr650v2-01
 
 [compute_flavor_sr650v2]
-c-2
-c-3
-c-4
-c-5
-c-6
-c-7
-c-14
+c-sr650v2-02
+c-sr650v2-03
+c-sr650v2-04
+c-sr650v2-05
+c-sr650v2-06
+c-sr650v2-07
+c-sr650v2-08
 
 [compute_flavor_r660_1]
-c-8
-c-9
-c-10
-c-11
-c-12
-c-13
+c-r660-01
+c-r660-02
+c-r660-03
+c-r660-04
+c-r660-05
+c-r660-06
 
 [compute:children]
 compute_lenovo
@@ -88,4 +88,3 @@ mons
 
 [osds:children]
 storage
-
