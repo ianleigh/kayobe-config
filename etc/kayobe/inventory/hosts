@@ -67,7 +67,7 @@ ceph-hdd-08
 [storage_r760_2]
 ceph-hdd-01
 ceph-hdd-02
-# ceph-hdd-09 no route to host
+ceph-hdd-09
 ceph-hdd-10
 ceph-hdd-11
 ceph-hdd-12
