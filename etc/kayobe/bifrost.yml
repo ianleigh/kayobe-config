@@ -4,6 +4,7 @@
 ###############################################################################
 # Bifrost installation.
 
+kolla_enable_bifrost: false
 # URL of Bifrost source code repository.
 #kolla_bifrost_source_url:
 

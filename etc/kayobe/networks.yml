@@ -26,7 +26,7 @@ oob_oc_net_name: ipmi
 
 # Name of the network used to expose the internal OpenStack API endpoints.
 #internal_net_name:
-internal_net_name: data
+internal_net_name: prod
 
 # List of names of networks used to provide external network access via
 # Neutron.
@@ -34,9 +34,7 @@ internal_net_name: data
 # If external_net_name is defined, external_net_names will default to a list
 # containing one item, external_net_name.
 #external_net_names:
-external_net_names:
-- jbo
-- data
+external_net_names: jbo
 
 # Name of the network used to expose the public OpenStack API endpoints.
 #public_net_name:
@@ -44,7 +42,7 @@ public_net_name: jbo
 
 # Name of the network used by Neutron to carry tenant overlay network traffic.
 #tunnel_net_name:
-tunnel_net_name: data
+tunnel_net_name: prod
 
 # Name of the network used to carry storage data traffic.
 #storage_net_name:
@@ -109,6 +107,8 @@ jbo_allocation_pool_end: 130.88.9.131
 
 data_cidr: 192.168.100.0/24
 data_vip_address: 192.168.100.200
+
+prod_vip_address: 192.168.10.200
 
 ipmi_cidr: 192.168.1.0/24
 

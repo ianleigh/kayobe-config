@@ -19,6 +19,24 @@ prod_interface: enp65s0
 
 jbo_interface: eno2
 
+# List of default networks to which controller nodes are attached.
+controller_default_network_interfaces: >
+  {{ [admin_oc_net_name,
+      oob_wl_net_name,
+      provision_wl_net_name,
+      inspection_net_name,
+      internal_net_name,
+      swift_storage_net_name,
+      cleaning_net_name] | select | unique | list }}
+
+# List of default network interfaces to which network nodes are attached.
+controller_network_host_default_network_interfaces: >
+  {{ ([admin_oc_net_name,
+       internal_net_name,
+       public_net_name,
+       tunnel_net_name] +
+      external_net_names) | select | unique | list }}
+
 ##############################################################################
 # Dummy variable to allow Ansible to accept this file.
 workaround_ansible_issue_8743: yes
