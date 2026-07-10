@@ -1,2 +1,2 @@
 ---
-compute_nova_disk: /dev/sdb
+compute_nova_disk: /dev/disk/by-path/pci-0000:00:17.0-ata-6
