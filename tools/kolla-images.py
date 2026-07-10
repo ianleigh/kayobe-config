@@ -72,8 +72,11 @@ IMAGE_TO_CONTAINERS_EXCEPTIONS: Dict[str, List[str]] = {
     "ovn-sb-db-server": [
         "ovn_sb_db",
     ],
-    "prometheus-v2-server": [
+    "prometheus-server": [
         "prometheus_server",
+    ],
+    "valkey-server": [
+        "valkey",
     ],
 }
 
@@ -95,12 +98,13 @@ CONTAINER_TO_PREFIX_VAR_EXCEPTIONS: Dict[str, str] = {
     "redis_sentinel": "openstack",
     "swift_object_expirer": "swift",
     "tgtd": "iscsi",
+    "valkey_sentinel": "openstack",
 }
 
 # List of supported base distributions and versions.
 SUPPORTED_BASE_DISTROS = [
     "rocky-9",
-    "ubuntu-jammy",
+    "rocky-10",
     "ubuntu-noble",
 ]
 
@@ -231,6 +235,8 @@ def get_openstack_release() -> str:
         key, value = line.split("=")
         if key.strip() == "defaultbranch":
             value = value.strip()
+            if value == "master":
+                return value[:]
             for prefix in ("stable/", "unmaintained/"):
                 if value.startswith(prefix):
                     return value[len(prefix):]
@@ -242,7 +248,7 @@ def validate(kolla_image_tags: KollaImageTags):
     tag_var_re = re.compile(r"^[a-z0-9_]+$")
     openstack_release = get_openstack_release()
     tag_res = {
-        base_distro: re.compile(f"^{openstack_release}-{base_distro}-[\d]{{8}}T[\d]{{6}}$")
+        base_distro: re.compile(rf"^{openstack_release}-{base_distro}-[\d]{{8}}T[\d]{{6}}$")
         for base_distro in SUPPORTED_BASE_DISTROS
     }
     errors = []
@@ -310,7 +316,7 @@ def check_image_map(kolla_ansible_path: str):
     image_map = yaml.safe_load(image_map_str)
     image_var_re = re.compile(r"^([a-z0-9_]+)_image$")
     image_map = {
-        image_var_re.match(image_var).group(1): image.split("/")[-1]
+        image_var_re.match(image_var).group(1): image.split("/")[-1].replace('{{ docker_image_name_prefix }}', '')
         for image_var, image in image_map.items()
     }
     # Filter out unsupported images.

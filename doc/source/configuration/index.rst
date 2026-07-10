@@ -10,11 +10,11 @@ the various features provided.
 
    release-train
    host-images
+   ironic
    lvm
    cephadm
    monitoring
    openbao
-   vault
    wazuh
    walled-garden
    security-hardening
@@ -23,3 +23,4 @@ the various features provided.
    ci-cd
    cloudkitty
    ipa
+   stackhpc-mixin-environments

@@ -23,8 +23,8 @@ on:
         type: boolean
         required: false
         default: true
-      ubuntu-jammy:
-        description: Build Ubuntu Jammy 22.04 images?
+      rocky-linux-10:
+        description: Build Rocky Linux 10 images?
         type: boolean
         required: false
         default: true
@@ -71,7 +71,7 @@ jobs:
     steps:
       - name: Validate inputs
         run: |
-          if [[ ${{ inputs.rocky-linux-9 }} == 'false' && ${{ inputs.ubuntu-jammy }} == 'false' && ${{ inputs.ubuntu-noble }} == 'false' ]]; then
+          if [[ ${{ inputs.rocky-linux-9 }} == 'false' && ${{ inputs.rocky-linux-10 }} == 'false' && ${{ inputs.ubuntu-noble }} == 'false' ]]; then
             echo "At least one distribution must be selected"
             exit 1
           fi
@@ -107,10 +107,15 @@ jobs:
           output="{'distro': ["
           if [[ ${{ inputs.rocky-linux-9 }} == 'true' ]]; then
               output+="{'name': 'rocky', 'release': 9, 'arch': 'amd64'},"
-              output+="{'name': 'rocky', 'release': 9, 'arch': 'aarch64'},"
+              if [[ ${{ inputs.overcloud }} == 'true' ]]; then
+                output+="{'name': 'rocky', 'release': 9, 'arch': 'aarch64', 'runner': 'sms'},"
+              fi
           fi
-          if [[ ${{ inputs.ubuntu-jammy }} == 'true' ]]; then
-              output+="{'name': 'ubuntu', 'release': 'jammy', 'arch': 'amd64'},"
+          if [[ ${{ inputs.rocky-linux-10 }} == 'true' ]]; then
+              output+="{'name': 'rocky', 'release': 10, 'arch': 'amd64'},"
+              if [[ ${{ inputs.overcloud }} == 'true' ]]; then
+                output+="{'name': 'rocky', 'release': 10, 'arch': 'aarch64', 'runner': 'sms-alternate'},"
+              fi
           fi
           if [[ ${{ inputs.ubuntu-noble }} == 'true' ]]; then
               output+="{'name': 'ubuntu', 'release': 'noble', 'arch': 'amd64'},"
@@ -133,7 +138,7 @@ jobs:
     name: Build Kolla container images
     if: github.repository == 'stackhpc/stackhpc-kayobe-config'
     runs-on: ${{ matrix.distro.arch == 'aarch64'
-      && fromJson('["self-hosted","sms","arm64"]')
+      && fromJson(format('["self-hosted", "{0}", "arm64"]', matrix.distro.runner))
       || needs.runner-selection.outputs.runner_name_container_image_build }}
     timeout-minutes: 720
     permissions: {}
@@ -246,6 +251,10 @@ jobs:
           args="$args -e kolla_base_distro_version=${{ matrix.distro.release }}"
           args="$args -e kolla_tag=${{ steps.write-kolla-tag.outputs.kolla-tag }}"
           args="$args -e stackhpc_repo_mirror_auth_proxy_enabled=true"
+          args="$args -e base_path=$GITHUB_WORKSPACE/opt/kayobe"
+          # NOTE: We override pulp_auth_proxy_conf_path to a path shared by the
+          # runner and dind containers.
+          args="$args -e pulp_auth_proxy_conf_path=/home/runner/_work/pulp_proxy"
           source venvs/kayobe/bin/activate &&
           source src/kayobe-config/kayobe-env --environment ci-builder &&
           kayobe seed container image build $args
@@ -271,7 +280,7 @@ jobs:
         if: ${{ !cancelled() }}
 
       - name: Fail if any images have critical vulnerabilities
-        run: if [ -e image-build-logs/image-scan-output/critical-images.txt ] && [ $(wc -l < image-build-logs/image-scan-output/critical-images.txt) -gt 0 ]; then exit 1; fi
+        run: if [ $(wc -l < image-build-logs/image-scan-output/critical-images.txt) -gt 0 ]; then exit 1; fi
         if: ${{ !inputs.push-critical }}
 
       - name: Copy clean images to push-attempt-images list
@@ -295,7 +304,7 @@ jobs:
           touch image-build-logs/push-failed-images.txt
           source venvs/kayobe/bin/activate &&
           source src/kayobe-config/kayobe-env --environment ci-builder &&
-          kayobe playbook run ${KAYOBE_CONFIG_PATH}/ansible/docker-registry-login.yml &&
+          kayobe playbook run ${KAYOBE_CONFIG_PATH}/ansible/tools/docker-registry-login.yml &&
 
           while read -r image; do
             # Retries!
@@ -330,7 +339,7 @@ jobs:
         if: ${{ steps.build_overcloud_images.outcome == 'failure' || steps.build_seed_images.outcome == 'failure' }}
 
       - name: Fail when images failed to push
-        run: if [ -e image-build-logs/push-failed-images.txt ] && [ $(wc -l < image-build-logs/push-failed-images.txt) -gt 0 ]; then cat image-build-logs/push-failed-images.txt && exit 1; fi
+        run: if [ $(wc -l < image-build-logs/push-failed-images.txt) -gt 0 ]; then cat image-build-logs/push-failed-images.txt && exit 1; fi
         if: ${{ inputs.push && !cancelled() }}
 
       # NOTE(seunghun1ee): Currently we want to mark the job fail only when critical CVEs are detected.
@@ -341,7 +350,7 @@ jobs:
       #   if: ${{ !inputs.push-critical && !cancelled() }}
 
       - name: Fail when critical vulnerabilities are found
-        run: if [ -e image-build-logs/image-scan-output/critical-images.txt ] && [ $(wc -l < image-build-logs/image-scan-output/critical-images.txt) -gt 0 ]; then cat image-build-logs/image-scan-output/critical-images.txt && exit 1; fi
+        run: if [ $(wc -l < image-build-logs/image-scan-output/critical-images.txt) -gt 0 ]; then cat image-build-logs/image-scan-output/critical-images.txt && exit 1; fi
         if: ${{ !inputs.push-critical && !cancelled() }}
 
       - name: Remove locally built images for this run
@@ -354,7 +363,7 @@ jobs:
   create-manifests:
     # Only for Rocky Linux for now
     name: Create Multiarch Docker Manifests
-    if: github.repository == 'stackhpc/stackhpc-kayobe-config' && inputs.push && inputs.rocky-linux-9
+    if: github.repository == 'stackhpc/stackhpc-kayobe-config' && inputs.push && (inputs.rocky-linux-9 || inputs.rocky-linux-10)
     runs-on: ${{ needs.runner-selection.outputs.runner_name_container_image_build }}
     permissions: {}
     needs:
