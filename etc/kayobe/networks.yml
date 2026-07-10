@@ -94,6 +94,7 @@ storage_mgmt_net_name: data
 # network configuration reference in the Kayobe documentation.
 
 prod_cidr: 192.168.10.0/24
+prod_vip_address: 192.168.10.200
 # Gateway is set in group vars
 # so controllers are not confused
 # prod_gateway: 192.168.10.201
@@ -108,8 +109,6 @@ jbo_allocation_pool_end: 130.88.9.131
 
 data_cidr: 192.168.100.0/24
 data_vip_address: 192.168.100.200
-
-prod_vip_address: 192.168.10.200
 
 ipmi_cidr: 192.168.1.0/24
 
