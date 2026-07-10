@@ -80,7 +80,7 @@ compute_lvm_groups:
         create: true
         mount: true
         filesystem: ext4
-        mntp: /var/lib/nova
+        mntp: /var/lib/docker
 
 # Default list of compute volume groups. See mrlesmithjr.manage_lvm role for
 # format.
