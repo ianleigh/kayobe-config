@@ -5,21 +5,21 @@ set -ex
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 
-RABBITMQ_SERVICES_TO_RESTART=barbican,blazar,cinder,cloudkitty,heat,ironic,keystone,magnum,manila,neutron,nova,octavia # Stop Designate separately
+RABBITMQ_SERVICES_TO_RESTART=barbican,blazar,cinder,cloudkitty,designate,heat,ironic,keystone,magnum,manila,neutron,nova,octavia
 RABBITMQ_CONTAINER_NAME=rabbitmq
 
 if [[ ! $KAYOBE_CONFIG_PATH ]]; then
-    echo "${RED}Environment variable \$KAYOBE_CONFIG_PATH is not defined"
-    echo "${RED}Ensure your environment is set up to run kayobe commands"
+    echo -e "${RED}Environment variable \$KAYOBE_CONFIG_PATH is not defined"
+    echo -e "${RED}Ensure your environment is set up to run kayobe commands"
     exit 2
 fi
 
 if [[ ! "$1" = "--skip-checks" ]]; then
     # Fail if clocks are not synced
     if ! ( kayobe overcloud host command run -l controllers -b --command "timedatectl status | grep 'synchronized: yes'" ); then
-        echo "${RED}Failed precheck: Time not synced on controllers"
-        echo "${RED}Use 'timedatectl status' to check sync state"
-        echo "${RED}Either wait for sync or use 'chronyc makestep'"
+        echo -e "${RED}Failed precheck: Time not synced on controllers"
+        echo -e "${RED}Use 'timedatectl status' to check sync state"
+        echo -e "${RED}Either wait for sync or use 'chronyc makestep'"
         exit 1
     fi
     kayobe overcloud service configuration generate --node-config-dir /tmp/rabbit-migration --kolla-tags none
@@ -28,7 +28,7 @@ if [[ ! "$1" = "--skip-checks" ]]; then
            grep 'om_enable_rabbitmq_quorum_queues: true' $KOLLA_CONFIG_PATH/globals.yml && \
            grep 'om_enable_rabbitmq_transient_quorum_queue: true' $KOLLA_CONFIG_PATH/globals.yml && \
            grep 'om_enable_rabbitmq_stream_fanout: true' $KOLLA_CONFIG_PATH/globals.yml ); then
-              echo "${RED}Failed precheck: The following must be enabled: om_enable_queue_manager, om_enable_rabbitmq_quorum_queues, om_enable_rabbitmq_transient_quorum_queue, om_enable_rabbitmq_stream_fanout"
+              echo -e "${RED}Failed precheck: The following must be enabled: om_enable_queue_manager, om_enable_rabbitmq_quorum_queues, om_enable_rabbitmq_transient_quorum_queue, om_enable_rabbitmq_stream_fanout"
               exit 1
     fi
 fi
@@ -36,8 +36,6 @@ fi
 # Generate new config, stop services using rabbit, and reset rabbit state
 kayobe overcloud service configuration generate --node-config-dir /etc/kolla --kolla-skip-tags rabbitmq-ha-precheck
 kayobe kolla ansible run "stop --yes-i-really-really-mean-it" -kt $RABBITMQ_SERVICES_TO_RESTART
-# Stop Designate services except for ``designate_backend_bind`` containers
-kayobe overcloud host command run -b -l controllers --command "systemctl list-units --all --type=service --no-legend --plain | awk '/kolla-designate/ && !/backend_bind9/ {print \$1}' | xargs -r systemctl stop || true"
 kayobe kolla ansible run rabbitmq-reset-state
 
 if [[ ! "$1" = "--skip-checks" ]]; then
@@ -59,9 +57,6 @@ if [[ ! "$1" = "--skip-checks" ]]; then
     fi
     export TERM=${CURRENTTERM}
 fi
-
-# Include designate services to kolla deployment
-RABBITMQ_SERVICES_TO_RESTART=$RABBITMQ_SERVICES_TO_RESTART,designate
 
 # Redeploy with all durable-type queues enabled
 kayobe kolla ansible run deploy-containers -kt $RABBITMQ_SERVICES_TO_RESTART

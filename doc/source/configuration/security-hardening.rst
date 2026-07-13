@@ -12,8 +12,9 @@ improvement over an unhardened system. A typical score would be 70%.
 
 The following operating systems are supported:
 
-- Ubuntu 22.04
+- Ubuntu 24.04
 - Rocky 9
+- Rocky 10
 
 Configuration
 --------------
@@ -25,8 +26,9 @@ instance, you may want different rules on a network node compared to a
 controller. It is best to consult the upstream role documentation for details
 about what each variable does. The documentation can be found here:
 
-- `Ubuntu 22.04 <https://github.com/ansible-lockdown/UBUNTU22-CIS>`__
+- `Ubuntu 24.04 <https://github.com/ansible-lockdown/UBUNTU24-CIS>`__
 - `Rocky 9 <https://github.com/ansible-lockdown/RHEL9-CIS>`__
+- `Rocky 10 <https://github.com/ansible-lockdown/RHEL10-CIS>`__
 
 Running the playbooks
 ---------------------
@@ -46,7 +48,7 @@ whether or not workloads or API requests are affected by any configuration chang
 
 .. code-block:: console
 
-    kayobe playbook run $KAYOBE_CONFIG_PATH/ansible/cis.yml
+    kayobe playbook run $KAYOBE_CONFIG_PATH/ansible/maintenance/cis.yml
 
 Targetting additional hosts
 ---------------------------

@@ -5,7 +5,7 @@ Multinode Test Environment
 .. warning::
 
     This guide was written for the Yoga release and has not been validated for
-    Caracal. Proceed with caution.
+    2025.1. Proceed with caution.
 
 The ``ci-multinode`` environment provides a Kayobe configuration for multi-node
 clouds to be used for test and development purposes. It is designed to be used
@@ -37,29 +37,29 @@ is not enabled by default. To enable it, set the following in
 
 If you are working on an existing deployment, you need to do the following first.
 
-1. Create CephFS pools: ``kayobe playbook run $KAYOBE_CONFIG_PATH/ansible/cephadm-pools.yml``
-2. Create cephx key for Manila: ``kayobe playbook run $KAYOBE_CONFIG_PATH/ansible/cephadm-keys.yml``
-3. Run Manila related Ceph commands: ``kayobe playbook run $KAYOBE_CONFIG_PATH/ansible/cephadm-commands-post.yml``
-4. Gather Ceph configuration and keyring for Manila: ``kayobe playbook run $KAYOBE_CONFIG_PATH/ansible/cephadm-gather-keys.yml``
+1. Create CephFS pools: ``kayobe playbook run $KAYOBE_CONFIG_PATH/ansible/ceph/cephadm-pools.yml``
+2. Create cephx key for Manila: ``kayobe playbook run $KAYOBE_CONFIG_PATH/ansible/ceph/cephadm-keys.yml``
+3. Run Manila related Ceph commands: ``kayobe playbook run $KAYOBE_CONFIG_PATH/ansible/ceph/cephadm-commands-post.yml``
+4. Gather Ceph configuration and keyring for Manila: ``kayobe playbook run $KAYOBE_CONFIG_PATH/ansible/ceph/cephadm-gather-keys.yml``
 5. Configure Storage network on Seed node: ``kayobe seed host configure -t network,ip-allocation,snat``
 
 Then, run ``kayobe overcloud service deploy`` to deploy Manila.
 
 To test it, you will need two virtual machines. Cirros does not support the Ceph
 kernel client, so you will need to use a different image. Any regular Linux
-distribution should work. As an example, this guide will use Ubuntu 22.04.
+distribution should work. As an example, this guide will use Ubuntu 24.04.
 
 Download the image locally:
 
 .. code-block:: bash
 
-      wget https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img
+      wget https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img
 
 Upload the image to Glance:
 
 .. code-block:: bash
 
-      openstack image create --container-format bare --disk-format qcow2 --file jammy-server-cloudimg-amd64.img Ubuntu-22.04 --progress
+      openstack image create --container-format bare --disk-format qcow2 --file noble-server-cloudimg-amd64.img Ubuntu-24.04 --progress
 
 Create a keypair:
 
@@ -71,8 +71,8 @@ Create two virtual machines from the image:
 
 .. code-block:: bash
 
-      openstack server create --flavor m1.small --image Ubuntu-22.04 --key-name id_rsa --network admin-tenant ubuntu-client-1
-      openstack server create --flavor m1.small --image Ubuntu-22.04 --key-name id_rsa --network admin-tenant ubuntu-client-2
+      openstack server create --flavor m1.small --image Ubuntu-24.04 --key-name id_rsa --network admin-tenant ubuntu-client-1
+      openstack server create --flavor m1.small --image Ubuntu-24.04 --key-name id_rsa --network admin-tenant ubuntu-client-2
 
 Wait until the instances are active. It is worth noting that this process can
 take a while, especially if the overcloud is deployed to virtual machines. You
@@ -342,15 +342,15 @@ Create and encrypt the Wazuh secrets
 
 .. code-block:: bash
 
-      kayobe playbook run $KAYOBE_CONFIG_PATH/ansible/wazuh-secrets.yml
-      ansible-vault encrypt --vault-password-file ~/vault.password  $KAYOBE_CONFIG_PATH/environments/ci-multinode/wazuh-secrets.yml
+      kayobe playbook run $KAYOBE_CONFIG_PATH/ansible/deployment/wazuh-secrets.yml
+      ansible-vault encrypt --vault-password-file ~/vault.password  $KAYOBE_CONFIG_PATH/environments/ci-multinode/deployment/wazuh-secrets.yml
 
 Run the Wazuh manager and agent deployment playbooks:
 
 .. code-block:: bash
 
-      kayobe playbook run $KAYOBE_CONFIG_PATH/ansible/wazuh-manager.yml
-      kayobe playbook run $KAYOBE_CONFIG_PATH/ansible/wazuh-agent.yml
+      kayobe playbook run $KAYOBE_CONFIG_PATH/ansible/deployment/wazuh-manager.yml
+      kayobe playbook run $KAYOBE_CONFIG_PATH/ansible/deployment/wazuh-agent.yml
 
 Wazuh should now be fully deployed. To test the service, you can use sshuttle
 or some other forwarding protocol to access the Wazuh dashboard.
@@ -370,7 +370,7 @@ The default username is ``admin`` and the password is the
 
 .. code-block:: bash
 
-      ansible-vault view $KAYOBE_CONFIG_PATH/environments/ci-multinode/wazuh-secrets.yml --vault-password-file ~/vault.password | grep opendistro_admin_password
+      ansible-vault view $KAYOBE_CONFIG_PATH/environments/ci-multinode/deployment/wazuh-secrets.yml --vault-password-file ~/vault.password | grep opendistro_admin_password
 
 If the deployment has been successful, you should be able to see a Wazuh agent
 for each host in your deployment (aside from the Wazuh manager itself).

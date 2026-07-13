@@ -39,7 +39,7 @@
 
 # User with which to access remote hosts. This user will be created if it does
 # not exist.
-kayobe_ansible_user: "stack"
+#kayobe_ansible_user:
 
 ###############################################################################
 # OS distribution.
@@ -47,13 +47,12 @@ kayobe_ansible_user: "stack"
 # OS distribution name. Valid options are "centos", "rocky", "ubuntu". Default
 # is "rocky".
 #os_distribution:
-os_distribution: "rocky"
 
-# OS release. Valid options are "9-stream" when os_distribution is "centos", or
-# "9" when os_distribution is "rocky", or "jammy" and "noble" (with "jammy"
-# being the default) when os_distribution is "ubuntu".
+# OS release. Valid options are "9-stream" and "10-stream" (with "9-stream"
+# being the default) when os_distribution is "centos", "9" and "10" (with "9"
+# being the default) when os_distribution is "rocky", or "noble" when
+# os_distribution is "ubuntu".
 #os_release:
-os_release: 9
 
 ###############################################################################
 # Ansible configuration.
@@ -66,10 +65,14 @@ os_release: 9
 # to not specify a gather subset.
 #kayobe_ansible_setup_gather_subset:
 
-selinux_do_reboot: true
 # Global maximum failure percentage. By default this is undefined, which is
 # equivalent to a value of 100.
 #kayobe_max_fail_percentage:
+
+# Whether or not we should try and escalate privileges on the control host.
+# This allows us to install packages and create arbitrary directories that our
+# user would not normally have permission to create. Default is true.
+#kayobe_control_host_become:
 
 ###############################################################################
 # Dummy variable to allow Ansible to accept this file.

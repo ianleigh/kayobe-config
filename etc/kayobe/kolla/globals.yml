@@ -1,30 +1,5 @@
 # yamllint disable-file
 ---
-# Add extra Kolla global configuration here.
-prechecks_enable_host_ntp_checks: false
-
-# Just use ovn octavia
-octavia_auto_configure: "no"
-octavia_provider_drivers: "ovn:OVN provider"
-octavia_provider_agents: "ovn"
-enable_horizon_octavia: false
-# Enabling Ceph
-cinder_backend_ceph: true
-glance_backend_ceph: true
-# Enabling SKA-IAM
-keystone_identity_providers:
-  - name: "ska-iam"
-    openstack_domain: "ska"
-    protocol: "openid"
-    identifier: "https://ska-iam.stfc.ac.uk/"
-    public_name: "Authenticate via SKA-IAM"
-    attribute_mapping: "ska_mapping"
-    metadata_folder: "{{ kayobe_config_path }}/jbo-idp-conf/idp"
-keystone_identity_mappings:
-- name: "ska_mapping"
-  file: "{{ kayobe_config_path }}/kolla/config/keystone/ska_identity-mappings.json"
-kolla_enable_tls_external: true
-keystone_federation_oidc_response_type: code
 
 # kolla_base_distro must be set here to be resolvable on a per-host basis
 # This is necessary for os migrations where mixed clouds might be deployed
@@ -32,18 +7,19 @@ kolla_base_distro: "{% raw %}{{ ansible_facts.distribution | lower }}{% endraw %
 
 # Use facts so this is determined correctly when the control host OS differs
 # from os_distribuition.
-kolla_base_distro_version: "{% raw %}{{ 'noble' if ansible_facts.distribution_release == 'noble' else kolla_base_distro_version_default_map[kolla_base_distro] }}{% endraw %}"
+kolla_base_distro_version: "{% raw %}{{ kolla_base_distro_version_default_map[kolla_base_distro] }}{% endraw %}"
 
 # Convenience variable for base distro and version string.
 kolla_base_distro_and_version: "{% raw %}{{ kolla_base_distro }}-{{ kolla_base_distro_version }}{% endraw %}"
 
-kolla_base_distro_version_custom_map: {
-  "rocky-9": "3.9",
-  "ubuntu-jammy": "3.10",
-  "ubuntu-noble": "3.12"
+# Override the version map used, so we can deploy Rocky 10 container images
+# on Rocky 10 hosts.
+kolla_base_distro_version_default_map: {
+  "centos": "stream9",
+  "debian": "bookworm",
+  "rocky": "{{ os_release }}",
+  "ubuntu": "noble",
 }
-
-distro_python_version: "{% raw %}{{ kolla_base_distro_version_custom_map[kolla_base_distro_and_version] }}{% endraw %}"
 
 # Dict of Kolla image tags to deploy for each service.
 # Each key is the tag variable prefix name, and the value is another dict,
@@ -91,3 +67,10 @@ prometheus_blackbox_exporter_endpoints_kayobe:
     enabled: "{{ seed_pulp_container_enabled | bool }}"
 
 prometheus_openstack_exporter_interval: "{{ stackhpc_prometheus_openstack_exporter_interval }}s"
+
+rabbitmq_image: "{% raw %}{{ docker_registry ~ '/' if docker_registry else '' }}{{ docker_namespace }}/rabbitmq-4-1{% endraw %}"
+
+# NOTE(seunghun1ee) Disable database TLS until ProxySQL 2.7 gets bug fix for
+# https://github.com/sysown/proxysql/issues/4877 or K-A bumps ProxySQL to 3.x.
+database_enable_tls_internal: false
+database_enable_tls_backend: false

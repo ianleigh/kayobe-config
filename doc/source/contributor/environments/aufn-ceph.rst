@@ -9,25 +9,23 @@ This environment creates a Universe-from-nothing_-style deployment of Kayobe con
 .. warning::
 
     This guide was written for the Yoga release and has not been validated for
-    Caracal. Proceed with caution.
+    2025.1. Proceed with caution.
 
 Prerequisites
 =============
 
-* a baremetal node with at least 64GB of RAM running Rocky Linux 9 or Ubuntu Jammy.
-
-* access to the test pulp server on SMS lab
+* a VM or baremetal node with at least 64GB of RAM running Rocky Linux 9 or Ubuntu Noble.
 
 Setup
 =====
 
 ---
 
-**Note**: The steps detailed below are combined into a convenient script which is packaged with this repo at ``etc/kayobe/environments/aufn-ceph/a-universe-from-nothing.sh``. For an automated deployment, this script can simply be copied to the baremetal host and then executed as ``bash ~/a-universe-from-nothing.sh``.
+**Note**: The steps detailed below are combined into a convenient script which is packaged with this repo at ``etc/kayobe/environments/aufn-ceph/a-universe-from-nothing.sh``. For an automated deployment, this script can simply be copied to the host and then executed as ``bash ~/a-universe-from-nothing.sh``.
 
 ---
 
-To begin the manual setup, access the baremetal node via SSH and install some basic dependencies.
+To begin the manual setup, access the node via SSH and install some basic dependencies.
 
 Rocky:
 
@@ -121,10 +119,10 @@ We can now sync the contents of the local pulp server with that of SMS test pulp
 
 .. parsed-literal::
 
-    kayobe playbook run $KAYOBE_CONFIG_PATH/ansible/pulp-repo-sync.yml
-    kayobe playbook run $KAYOBE_CONFIG_PATH/ansible/pulp-repo-publish.yml
-    kayobe playbook run $KAYOBE_CONFIG_PATH/ansible/pulp-container-sync.yml
-    kayobe playbook run $KAYOBE_CONFIG_PATH/ansible/pulp-container-publish.yml
+    kayobe playbook run $KAYOBE_CONFIG_PATH/ansible/pulp/pulp-repo-sync.yml
+    kayobe playbook run $KAYOBE_CONFIG_PATH/ansible/pulp/pulp-repo-publish.yml
+    kayobe playbook run $KAYOBE_CONFIG_PATH/ansible/pulp/pulp-container-sync.yml
+    kayobe playbook run $KAYOBE_CONFIG_PATH/ansible/pulp/pulp-container-publish.yml
     kayobe seed service deploy
 
 With the seed VM configured, we use Tenks_ to deploy an additional set of VMs on the same baremetal node and configure them as 'virual baremetal' hosts in order to replicate a true multi-node kayobe deployment within a single node.
@@ -148,8 +146,8 @@ These nodes can then be provisioned as overcloud control, compute and storage ho
     kayobe overcloud hardware inspect
     kayobe overcloud provision
     kayobe overcloud host configure
-    kayobe playbook run $KAYOBE_CONFIG_PATH/ansible/cephadm.yml
-    kayobe playbook run $KAYOBE_CONFIG_PATH/ansible/cephadm-gather-keys.yml
+    kayobe playbook run $KAYOBE_CONFIG_PATH/ansible/ceph/cephadm.yml
+    kayobe playbook run $KAYOBE_CONFIG_PATH/ansible/ceph/cephadm-gather-keys.yml
     kayobe overcloud container image pull
     kayobe overcloud service deploy
     source $KOLLA_CONFIG_PATH/public-openrc.sh

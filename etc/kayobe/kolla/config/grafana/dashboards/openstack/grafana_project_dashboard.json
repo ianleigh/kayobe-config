@@ -527,7 +527,7 @@
           "editorMode": "code",
           "expr": "avg(sum(irate(libvirt_domain_vcpu_time_seconds_total{}[5m]) / ignoring(instance,vcpu) group_left(domain) libvirt_domain_info_virtual_cpus{}) by (domain) * on(domain) group_left(instance_name,project_name,project_id) libvirt_domain_openstack_info{project_id=~\"${project_id}\"}) by (project_name)",
           "hide": false,
-          "legendFormat": "{{instance_name}}",
+          "legendFormat": "{{project_name}}",
           "range": true,
           "refId": "B"
         }
@@ -631,7 +631,7 @@
           "editorMode": "code",
           "expr": "avg(libvirt_domain_memory_stats_used_percent * on(domain) group_left(instance_name,project_name,project_id) libvirt_domain_openstack_info{project_id=~\"${project_id}\"}) by (project_name)",
           "hide": false,
-          "legendFormat": "{{instance_name}}",
+          "legendFormat": "{{project_name}}",
           "range": true,
           "refId": "A"
         }

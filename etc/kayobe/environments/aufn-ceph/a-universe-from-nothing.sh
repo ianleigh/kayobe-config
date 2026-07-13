@@ -10,20 +10,27 @@
 set -eu
 
 BASE_PATH=~
-KAYOBE_BRANCH=stackhpc/2024.1
-KAYOBE_CONFIG_BRANCH=stackhpc/2024.1
+KAYOBE_BRANCH=stackhpc/2025.1
+KAYOBE_CONFIG_BRANCH=stackhpc/2025.1
 KAYOBE_ENVIRONMENT=aufn-ceph
+
+if [[ ! -f $BASE_PATH/vault-pw ]]; then
+    echo "Vault password file not found at $BASE_PATH/vault-pw"
+    exit 1
+fi
 
 # Install git and tmux.
 if $(which dnf 2>/dev/null >/dev/null); then
     sudo dnf -y install git tmux
 else
     sudo apt update
-    sudo apt -y install git tmux gcc libffi-dev python3-dev python-is-python3
+    sudo apt -y install git tmux gcc libffi-dev python3-dev python-is-python3 python3-pip python3.12-venv
 fi
 
+export KAYOBE_VAULT_PASSWORD=$(cat $BASE_PATH/vault-pw)
+
 # Disable the firewall.
-sudo systemctl is-enabled firewalld && sudo systemctl stop firewalld && sudo systemctl disable firewalld
+sudo systemctl is-enabled firewalld && sudo systemctl stop firewalld && sudo systemctl disable firewalld || true
 
 # Disable SELinux both immediately and permanently.
 if $(which setenforce 2>/dev/null >/dev/null); then
@@ -32,7 +39,7 @@ if $(which setenforce 2>/dev/null >/dev/null); then
 fi
 
 # Prevent sudo from performing DNS queries.
-echo 'Defaults	!fqdn' | sudo tee /etc/sudoers.d/no-fqdn
+echo 'Defaults !fqdn' | sudo tee /etc/sudoers.d/no-fqdn
 
 # Clone repositories
 cd $BASE_PATH
@@ -47,7 +54,7 @@ popd
 mkdir -p venvs
 pushd venvs
 if [[ ! -d kayobe ]]; then
-    python3 -m venv kayobe
+    python3.12 -m venv kayobe
 fi
 # NOTE: Virtualenv's activate and deactivate scripts reference an
 # unbound variable.
@@ -55,7 +62,7 @@ set +u
 source kayobe/bin/activate
 set -u
 pip install -U pip
-pip install ../src/kayobe
+pip install -r ../src/kayobe-config/requirements.txt
 popd
 
 # Activate environment
@@ -84,10 +91,10 @@ kayobe seed service deploy --tags seed-deploy-containers --kolla-tags none
 $KAYOBE_CONFIG_PATH/environments/$KAYOBE_ENVIRONMENT/configure-local-networking.sh
 
 # Sync package & container repositories.
-kayobe playbook run $KAYOBE_CONFIG_PATH/ansible/pulp-repo-sync.yml
-kayobe playbook run $KAYOBE_CONFIG_PATH/ansible/pulp-repo-publish.yml
-kayobe playbook run $KAYOBE_CONFIG_PATH/ansible/pulp-container-sync.yml
-kayobe playbook run $KAYOBE_CONFIG_PATH/ansible/pulp-container-publish.yml
+kayobe playbook run $KAYOBE_CONFIG_PATH/ansible/pulp/pulp-repo-sync.yml
+kayobe playbook run $KAYOBE_CONFIG_PATH/ansible/pulp/pulp-repo-publish.yml
+kayobe playbook run $KAYOBE_CONFIG_PATH/ansible/pulp/pulp-container-sync.yml
+kayobe playbook run $KAYOBE_CONFIG_PATH/ansible/pulp/pulp-container-publish.yml
 
 # Re-run full task to set up bifrost_deploy etc. using newly-populated pulp repo
 kayobe seed service deploy
@@ -104,8 +111,8 @@ kayobe overcloud inventory discover
 kayobe overcloud hardware inspect
 kayobe overcloud provision
 kayobe overcloud host configure
-kayobe playbook run $KAYOBE_CONFIG_PATH/ansible/cephadm.yml
-kayobe playbook run $KAYOBE_CONFIG_PATH/ansible/cephadm-gather-keys.yml
+kayobe playbook run $KAYOBE_CONFIG_PATH/ansible/ceph/cephadm.yml
+kayobe playbook run $KAYOBE_CONFIG_PATH/ansible/ceph/cephadm-gather-keys.yml
 kayobe overcloud container image pull
 kayobe overcloud service deploy
 source $KOLLA_CONFIG_PATH/public-openrc.sh
