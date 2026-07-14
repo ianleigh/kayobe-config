@@ -14,7 +14,7 @@ oob_oc_net_name: ipmi
 
 # Name of the network used by the seed to provision the bare metal overcloud
 # hosts.
-#provision_oc_net_name:
+provision_oc_net_name: prod
 
 # Name of the network used by the overcloud hosts to manage the bare metal
 # compute hosts via their out-of-band management controllers.
@@ -95,6 +95,8 @@ storage_mgmt_net_name: data
 
 prod_cidr: 192.168.10.0/24
 prod_vip_address: 192.168.10.200
+prod_inspection_allocation_pool_start: 192.168.10.230
+prod_inspection_allocation_pool_end: 192.168.10.231
 # Gateway is set in group vars
 # so controllers are not confused
 # prod_gateway: 192.168.10.201
