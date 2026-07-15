@@ -10,7 +10,7 @@ data_ips:
   c-sr650v2-03: 192.168.100.3
   c-sr650v2-04: 192.168.100.4
   c-sr650v2-05: 192.168.100.5
-  # c-sr650v2-06: 192.168.100.6 Interface ens3f0np0 is not active
+  c-sr650v2-06: 192.168.100.6
   # c-sr650v2-07: 192.168.100.7 sdb dd'd
   # c-sr650v2-08: 192.168.100.8 Interface ens3f0np0 does not exist
   ceph-adm-01: 192.168.100.202
@@ -52,7 +52,7 @@ prod_ips:
   c-sr650v2-03: 192.168.10.3
   c-sr650v2-04: 192.168.10.4
   c-sr650v2-05: 192.168.10.5
-  # c-sr650v2-06: 192.168.10.6 Interface ens3f0np0 is not active
+  c-sr650v2-06: 192.168.10.6
   # c-sr650v2-07: 192.168.10.7 sdb dd'd
   # c-sr650v2-08: 192.168.10.8 Interface ens3f0np0 does not exist
   ceph-adm-01: 192.168.10.202
