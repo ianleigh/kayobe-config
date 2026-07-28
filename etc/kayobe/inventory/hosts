@@ -17,7 +17,7 @@ c-sr650v2-03
 c-sr650v2-04
 c-sr650v2-05
 c-sr650v2-06
-# c-sr650v2-07 sdb dd'd
+c-sr650v2-07
 # c-sr650v2-08 Interface ens3f0np0 does not exist
 
 [compute_dell]
@@ -26,7 +26,7 @@ c-r660-02
 c-r660-03
 c-r660-04
 c-r660-05
-# c-r660-06 removed for reinstall of OS on BOSS card and NVMEs work
+c-r660-06
 
 [compute_flavor_general]
 c-sr650v2-01
@@ -37,7 +37,7 @@ c-sr650v2-03
 c-sr650v2-04
 c-sr650v2-05
 c-sr650v2-06
-# c-sr650v2-07 sdb dd'd
+c-sr650v2-07
 # c-sr650v2-08 Interface ens3f0np0 does not exist
 
 [compute_flavor_r660_1]
@@ -46,7 +46,7 @@ c-r660-02
 c-r660-03
 c-r660-04
 c-r660-05
-# c-r660-06 removed for reinstall of OS on BOSS card and NVMEs work
+c-r660-06
 
 [compute:children]
 compute_lenovo
