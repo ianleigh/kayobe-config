@@ -94,7 +94,7 @@ storage_mgmt_net_name: data
 # network configuration reference in the Kayobe documentation.
 
 prod_cidr: 192.168.10.0/24
-prod_vip_address: 192.168.10.200
+prod_vip_address: 192.168.10.100
 prod_inspection_allocation_pool_start: 192.168.10.230
 prod_inspection_allocation_pool_end: 192.168.10.231
 # Gateway is set in group vars
@@ -104,13 +104,13 @@ prod_inspection_allocation_pool_end: 192.168.10.231
 # *.openstack.man.uksrc.org
 jbo_gateway: 130.88.9.250
 jbo_cidr: 130.88.9.0/24
-jbo_vip_address: 130.88.9.4
+jbo_vip_address: 130.88.9.100
 jbo_fqdn: api.openstack.man.uksrc.org
 jbo_allocation_pool_start: 130.88.9.15
 jbo_allocation_pool_end: 130.88.9.131
 
 data_cidr: 192.168.100.0/24
-data_vip_address: 192.168.100.200
+data_vip_address: 192.168.100.100
 
 ipmi_cidr: 192.168.1.0/24
 
