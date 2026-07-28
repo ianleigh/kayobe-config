@@ -15,7 +15,7 @@
 # Further information on the available network attributes is provided in the
 # network configuration reference in the Kayobe documentation.
 
-prod_interface: eno12399
+prod_interface: ens1f0
 data_interface: ens4f0np0
 prod_gateway: 192.168.10.201
 
