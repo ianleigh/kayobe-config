@@ -15,9 +15,9 @@
 # Further information on the available network attributes is provided in the
 # network configuration reference in the Kayobe documentation.
 
-prod_interface: enp65s0
+prod_interface: eno12399
 
-jbo_interface: eno2
+jbo_interface: eno8303
 
 # List of default networks to which controller nodes are attached.
 controller_default_network_interfaces: >
