@@ -81,7 +81,7 @@ storage_r760_2
 [mons]
 ceph-adm-01
 ceph-adm-02
-ceph-mds-01
+ceph-adm-03
 
 [mgrs:children]
 mons
