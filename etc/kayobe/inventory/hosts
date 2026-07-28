@@ -3,12 +3,12 @@
 localhost ansible_connection=local
 
 [seed]
-srcseed
+seed
 
 [controllers]
-ctl-t620-01
-ctl-t620-02
-ctl-t620-03
+ctl-r650-01
+ctl-r650-02
+ctl-r650-03
 
 [compute_lenovo]
 c-sr650v2-01
