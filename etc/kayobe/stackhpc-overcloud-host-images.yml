@@ -3,7 +3,7 @@
 # Release train overcloud host image sources
 
 # Whether or not to download overcloud host images from Ark
-stackhpc_download_overcloud_host_images: false
+stackhpc_download_overcloud_host_images: true
 
 # Whether or not to build overcloud host images from Ark
 stackhpc_build_overcloud_image_from_pulp_package_mirrors: false

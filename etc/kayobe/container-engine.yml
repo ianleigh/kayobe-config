@@ -2,7 +2,7 @@
 ###############################################################################
 # Container engine configuration
 
-docker_volumes_path: '/var/lib/docker'
+docker_volumes_path: '/var/lib/docker/volumes'
 
 # Configures the container engine. Default is 'docker'.
 #container_engine:
