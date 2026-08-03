@@ -12,12 +12,12 @@ ctl-r650-03
 
 [compute_lenovo]
 c-sr650v2-01
-# c-sr650v2-02
-# c-sr650v2-03
-# c-sr650v2-04
-# c-sr650v2-05
-# c-sr650v2-06
-# c-sr650v2-07
+c-sr650v2-02
+c-sr650v2-03
+c-sr650v2-04
+c-sr650v2-05
+c-sr650v2-06
+c-sr650v2-07
 # c-sr650v2-08 Interface ens3f0np0 does not exist
 
 [compute_dell]
@@ -32,12 +32,12 @@ c-sr650v2-01
 c-sr650v2-01
 
 [compute_flavor_sr650v2]
-# c-sr650v2-02
-# c-sr650v2-03
-# c-sr650v2-04
-# c-sr650v2-05
-# c-sr650v2-06
-# c-sr650v2-07
+c-sr650v2-02
+c-sr650v2-03
+c-sr650v2-04
+c-sr650v2-05
+c-sr650v2-06
+c-sr650v2-07
 # c-sr650v2-08 Interface ens3f0np0 does not exist
 
 [compute_flavor_r660_1]
