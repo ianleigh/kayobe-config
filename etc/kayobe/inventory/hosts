@@ -11,7 +11,7 @@ ctl-r650-02
 ctl-r650-03
 
 [compute_lenovo]
-# c-sr650v2-01
+c-sr650v2-01
 # c-sr650v2-02
 # c-sr650v2-03
 # c-sr650v2-04
@@ -29,7 +29,7 @@ ctl-r650-03
 # c-r660-06
 
 [compute_flavor_general]
-# c-sr650v2-01
+c-sr650v2-01
 
 [compute_flavor_sr650v2]
 # c-sr650v2-02
@@ -49,7 +49,7 @@ ctl-r650-03
 # c-r660-06
 
 [compute:children]
-# compute_lenovo
+compute_lenovo
 # compute_dell
 
 [storage_me5]
