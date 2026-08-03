@@ -7,8 +7,8 @@ seed
 
 [controllers]
 ctl-r650-01
-# ctl-r650-02
-# ctl-r650-03
+ctl-r650-02
+ctl-r650-03
 
 [compute_lenovo]
 # c-sr650v2-01

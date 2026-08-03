@@ -8,6 +8,10 @@ kolla_enable_bifrost: false
 # URL of Bifrost source code repository.
 #kolla_bifrost_source_url:
 
+kolla_bifrost_ironic_custom_config:
+  auto_discovery:
+    driver: "redfish"
+
 # Version (branch, tag, etc.) of Bifrost source code repository. Default is
 # {{ openstack_branch }}.
 #kolla_bifrost_source_version:
@@ -112,10 +116,11 @@ kolla_bifrost_enabled_hardware_types:
 #kolla_bifrost_inspector_ipmi_password:
 
 # Ironic inspector Redfish username to set.
-kolla_bifrost_inspector_redfish_username: jbcaadmin
+kolla_bifrost_inspector_ipmi_username: jbcaadmin
+# redfish inspection rule is defaulting to using the ipmi creds
 
 # Ironic inspector Redfish password to set.
-kolla_bifrost_inspector_redfish_password: "{{ secrets_inspector_redfish_password }}"
+kolla_bifrost_inspector_ipmi_password: "{{ secrets_inspector_redfish_password }}"
 
 # Ironic inspector network interface name on which to check for an LLDP switch
 # port description to use as the node's name.

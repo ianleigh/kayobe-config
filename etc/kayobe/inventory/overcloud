@@ -5,4 +5,5 @@
 
 [controllers]
 ctl-r650-01 ipmi_address=192.168.1.101 bmc_type=idrac
+ctl-r650-02 redfish_address=192.168.1.102 bmc_type=idrac
 
