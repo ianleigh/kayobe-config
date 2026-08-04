@@ -73,9 +73,9 @@ ceph-hdd-11
 ceph-hdd-12
 
 [storage:children]
-# storage_me5
-# storage_r760_1
-# storage_r760_2
+storage_me5
+storage_r760_1
+storage_r760_2
 
 [mons]
 ceph-adm-01
@@ -83,7 +83,7 @@ ceph-adm-02
 ceph-adm-03
 
 [mgrs:children]
-# mons
+mons
 
 [osds:children]
-# storage
+storage
