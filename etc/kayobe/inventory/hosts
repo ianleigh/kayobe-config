@@ -13,7 +13,7 @@ ctl-r650-03
 [compute_lenovo]
 c-sr650v2-01
 c-sr650v2-02
-c-sr650v2-03
+# c-sr650v2-03
 c-sr650v2-04
 c-sr650v2-05
 c-sr650v2-06
@@ -33,7 +33,7 @@ c-sr650v2-01
 
 [compute_flavor_sr650v2]
 c-sr650v2-02
-c-sr650v2-03
+# c-sr650v2-03
 c-sr650v2-04
 c-sr650v2-05
 c-sr650v2-06

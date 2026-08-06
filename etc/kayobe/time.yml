@@ -28,20 +28,20 @@
 #       - option: maxsources
 #         val: 3
 #
-chrony_ntp_servers:
-  - server: tycho.ast.man.ac.uk
-    type: server
-  - server: goedel.ast.man.ac.uk
-    type: server
-  - server: escher.ast.man.ac.uk
-    type: server
+# chrony_ntp_servers:
+#  - server: tycho.ast.man.ac.uk
+#    type: server
+#  - server: goedel.ast.man.ac.uk
+#    type: server
+#  - server: escher.ast.man.ac.uk
+#    type: server
 
 # Synchronise hardware clock with system time. Default is true.
 #chrony_rtcsync_enabled:
 
 # Force synchronisation from NTP sources. This methods may jump the clock by
 # large values which can cause issues with some software. Disabled by default.
-#ntp_force_sync:
+ntp_force_sync: true
 
 # Maximum number of tries used by the `chronyc waitsync` command. Only used
 # when ntp_force_sync is true. Default is 60 which waits for a maximum of 10
