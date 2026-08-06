@@ -6,7 +6,7 @@
 # order to setup the Kayobe user account. Default is 'cloud-user' if
 # os_distribution is set to centos, otherwise 'os_distribution'.
 #compute_bootstrap_user:
-compute_bootstrap_user: ileigh
+compute_bootstrap_user: cloud-user
 
 ###############################################################################
 # Compute network interface configuration.
@@ -67,21 +67,10 @@ compute_bootstrap_user: ileigh
 
 # List of compute volume groups. See mrlesmithjr.manage_lvm role for
 # format.
-#compute_lvm_groups:
-
 compute_lvm_groups:
-  - vgname: nova-compute
-    disks:
-      - "{{ compute_nova_disk }}"
-    create: true
-    lvnames:
-      - lvname: nova-compute-0
-        size: "100%FREE"
-        create: true
-        mount: true
-        filesystem: ext4
-        mntp: /var/lib/docker
-
+  - "{{ stackhpc_lvm_group_rootvg }}"
+  - "{{ compute_lvm_group_data }}"
+  
 # Default list of compute volume groups. See mrlesmithjr.manage_lvm role for
 # format.
 #compute_lvm_groups_default:
@@ -95,7 +84,7 @@ compute_lvm_groups:
 # if using the docker container engine, or a 'podman-volumes' logical volume
 # for container volume storage if using the podman container engine.
 # Default is false.
-#compute_lvm_group_data_enabled:
+compute_lvm_group_data_enabled: true
 
 # Compute LVM volume group for data. See mrlesmithjr.manage_lvm role for
 # format.
@@ -121,7 +110,7 @@ compute_lvm_groups:
 #compute_lvm_group_data_lv_podman_volumes:
 
 # Size of docker volumes LVM backing volume.
-#compute_lvm_group_data_lv_docker_volumes_size:
+compute_lvm_group_data_lv_docker_volumes_size: 100%VG
 
 # Filesystem for docker volumes LVM backing volume. ext4 allows for shrinking.
 #compute_lvm_group_data_lv_docker_volumes_fs:
