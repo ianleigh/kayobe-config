@@ -96,7 +96,7 @@ storage_mgmt_net_name: data
 prod_cidr: 192.168.10.0/24
 prod_vip_address: 192.168.10.100
 prod_inspection_allocation_pool_start: 192.168.10.230
-prod_inspection_allocation_pool_end: 192.168.10.245
+prod_inspection_allocation_pool_end: 192.168.10.249
 # Gateway is set in group vars so controllers are not confused
 # prod_gateway: 192.168.10.201
 
