@@ -18,6 +18,7 @@
 prod_interface: eno12399
 # data_interface: ens2f0np0
 jbo_interface: eno8303
+jbo_gateway: 130.88.9.125
 
 # List of default networks to which controller nodes are attached.
 controller_default_network_interfaces: >

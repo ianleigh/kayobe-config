@@ -1,5 +1,7 @@
 # yamllint disable-file
 ---
+enable_external_api_firewalld: true
+external_api_firewalld_zone: "{{ public_net_name | net_zone }}"
 
 # kolla_base_distro must be set here to be resolvable on a per-host basis
 # This is necessary for os migrations where mixed clouds might be deployed

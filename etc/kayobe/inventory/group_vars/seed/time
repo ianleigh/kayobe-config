@@ -1,0 +1,8 @@
+---
+chrony_ntp_servers:
+  - server: tycho.ast.man.ac.uk
+    type: server
+  - server: goedel.ast.man.ac.uk
+    type: server
+  - server: escher.ast.man.ac.uk
+    type: server
