@@ -13,7 +13,7 @@ ctl-r650-03
 [compute_lenovo]
 c-sr650v2-01
 c-sr650v2-02
-# c-sr650v2-03
+c-sr650v2-03
 c-sr650v2-04
 c-sr650v2-05
 c-sr650v2-06
@@ -33,7 +33,7 @@ c-sr650v2-01
 
 [compute_flavor_sr650v2]
 c-sr650v2-02
-# c-sr650v2-03
+c-sr650v2-03
 c-sr650v2-04
 c-sr650v2-05
 c-sr650v2-06
@@ -53,8 +53,8 @@ compute_lenovo
 compute_dell
 
 [storage_me5]
-# ceph-mds-01
-# ceph-mds-02
+ceph-mds-01
+ceph-mds-02
 
 [storage_r760_1]
 ceph-hdd-03
@@ -73,14 +73,14 @@ ceph-hdd-11
 ceph-hdd-12
 
 [storage:children]
-# storage_me5
-# storage_r760_1
-# storage_r760_2
+storage_me5
+storage_r760_1
+storage_r760_2
 
 [mons]
-# ceph-adm-01
-# ceph-adm-02
-# ceph-adm-03
+ceph-adm-01
+ceph-adm-02
+ceph-adm-03
 
 [mgrs:children]
 mons
