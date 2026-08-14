@@ -68,12 +68,12 @@ ceph-hdd-08
 ceph-hdd-01
 ceph-hdd-02
 ceph-hdd-09
-ceph-hdd-10
+# ceph-hdd-10
 ceph-hdd-11
 ceph-hdd-12
 
 [storage:children]
-storage_me5
+# storage_me5
 storage_r760_1
 storage_r760_2
 
