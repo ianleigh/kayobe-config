@@ -15,7 +15,10 @@
 # Further information on the available network attributes is provided in the
 # network configuration reference in the Kayobe documentation.
 
-prod_interface: eno12399np0
+prod_interface: "br-prod"
+prod_bridge_ports:
+  - "eno12399np0"
+
 data_interface: ens2f0np0
 
 ###############################################################################
