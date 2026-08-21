@@ -21,27 +21,7 @@ c-sr650v2-07
 # c-sr650v2-08 Interface ens3f0np0 does not exist
 
 [compute_dell]
-c-r660-01
-c-r660-02
-c-r660-03
-c-r660-04
-c-r660-05
-c-r660-06
-
-[compute_flavor_general]
-c-sr650v2-01
-
-[compute_flavor_sr650v2]
-c-sr650v2-02
-c-sr650v2-03
-c-sr650v2-04
-c-sr650v2-05
-c-sr650v2-06
-c-sr650v2-07
-# c-sr650v2-08 Interface ens3f0np0 does not exist
-
-[compute_flavor_r660_1]
-c-r660-01
+# c-r660-01 100G down
 c-r660-02
 c-r660-03
 c-r660-04
@@ -70,7 +50,7 @@ ceph-hdd-02
 ceph-hdd-09
 # ceph-hdd-10
 ceph-hdd-11
-ceph-hdd-12
+# ceph-hdd-12 no 100G
 
 [storage:children]
 # storage_me5
