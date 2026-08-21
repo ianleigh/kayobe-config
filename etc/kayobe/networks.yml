@@ -35,7 +35,7 @@ internal_net_name: prod
 # containing one item, external_net_name.
 #external_net_names:
 external_net_names: 
-- jbo
+  - jbo
 
 # Name of the network used to expose the public OpenStack API endpoints.
 #public_net_name:
@@ -94,7 +94,6 @@ storage_mgmt_net_name: data
 # network configuration reference in the Kayobe documentation.
 
 prod_cidr: 192.168.10.0/24
-prod_vip_address: 192.168.10.100
 prod_inspection_allocation_pool_start: 192.168.10.230
 prod_inspection_allocation_pool_end: 192.168.10.249
 # Gateway is set in group vars so controllers are not confused
@@ -103,13 +102,10 @@ prod_inspection_allocation_pool_end: 192.168.10.249
 # *.openstack.man.uksrc.org
 # Network split in 2
 # Gateway set in group_vars
+
 jbo_cidr: 130.88.9.0/25
-jbo_vip_address: 130.88.9.4
-jbo_fqdn: api.openstack.man.uksrc.org
 jbo_allocation_pool_start: 130.88.9.1
 jbo_allocation_pool_end: 130.88.9.120
-
-# jbo2_cidr: 130.88.9.128/25
 
 data_cidr: 192.168.100.0/24
 data_vip_address: 192.168.100.100
