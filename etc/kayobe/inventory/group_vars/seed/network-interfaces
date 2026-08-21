@@ -19,7 +19,6 @@ prod_interface: eno12409
 data_interface: ens1f0np0
 ipmi_interface: eno8403
 provision_oc_net_interface: eno12409
-jbo_gateway: 130.88.9.250
 
 ###############################################################################
 # Dummy variable to allow Ansible to accept this file.

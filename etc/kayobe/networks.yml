@@ -101,12 +101,15 @@ prod_inspection_allocation_pool_end: 192.168.10.249
 # prod_gateway: 192.168.10.201
 
 # *.openstack.man.uksrc.org
+# Network split in 2
 # Gateway set in group_vars
 jbo_cidr: 130.88.9.0/25
 jbo_vip_address: 130.88.9.4
 jbo_fqdn: api.openstack.man.uksrc.org
-jbo_allocation_pool_start: 130.88.9.15
-jbo_allocation_pool_end: 130.88.9.131
+jbo_allocation_pool_start: 130.88.9.1
+jbo_allocation_pool_end: 130.88.9.120
+
+# jbo2_cidr: 130.88.9.128/25
 
 data_cidr: 192.168.100.0/24
 data_vip_address: 192.168.100.100
