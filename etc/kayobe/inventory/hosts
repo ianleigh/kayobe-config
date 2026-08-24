@@ -55,7 +55,7 @@ ceph-hdd-11
 [storage:children]
 # storage_me5
 storage_r760_1
-storage_r760_2
+# storage_r760_2
 
 [mons]
 ceph-adm-01
