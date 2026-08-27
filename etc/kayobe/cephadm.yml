@@ -59,6 +59,36 @@ cephadm_cluster_network: "{{ storage_mgmt_net_name | net_cidr }}"
 
 # Ceph OSD specification.
 #cephadm_osd_spec:
+cephadm_osd_spec: |
+  service_type: osd
+  service_id: osd_spec_r760
+  placement:
+    hosts:
+      - ceph-hdd-01
+      - ceph-hdd-02
+      - ceph-hdd-03
+      - ceph-hdd-04
+      - ceph-hdd-05
+      - ceph-hdd-06
+      - ceph-hdd-07
+      - ceph-hdd-08
+      - ceph-hdd-09
+      - ceph-hdd-10
+      - ceph-hdd-11
+      - ceph-hdd-12
+  spec:
+    data_devices:
+      size: '15TB:'
+  ---
+  service_type: osd
+  service_id: osd_spec_ssd_me5
+  placement:
+    hosts:
+      - ceph-mds-01
+      - ceph-mds-02
+  spec:
+    data_devices:
+      size: '890GB:900GB'
 
 # Additional arguments to pass to `cephadm bootstrap`.
 #cephadm_bootstrap_additional_parameters:
@@ -69,15 +99,82 @@ cephadm_cluster_network: "{{ storage_mgmt_net_name | net_cidr }}"
 # List of Ceph erasure coding profiles. See stackhpc.cephadm.ec_profiles role
 # for format.
 #cephadm_ec_profiles:
+cephadm_ec_profiles:
+  - name: ec_4_2_hdd
+    k: 4
+    m: 2
+    crush_device_class: hdd
 
 # List of Ceph CRUSH rules. See stackhpc.cephadm.crush_rules role for format.
 #cephadm_crush_rules:
 
 # List of Ceph pools. See stackhpc.cephadm.pools role for format.
 #cephadm_pools:
+cephadm_pools:
+  - name: backups-data
+    application: rbd
+    state: present
+    pool_type: erasure
+    erasure_profile: ec_4_2_hdd
+    allow_ec_overwrites: true
+  - name: backups
+    application: rbd
+    state: present
+  - name: images-data
+    application: rbd
+    state: present
+    pool_type: erasure
+    erasure_profile: ec_4_2_hdd
+    allow_ec_overwrites: true
+  - name: images
+    application: rbd
+    state: present
+  - name: volumes-data
+    application: rbd
+    state: present
+    pool_type: erasure
+    erasure_profile: ec_4_2_hdd
+    allow_ec_overwrites: true 
+  - name: volumes
+    application: rbd
+    state: present
+  - name: cephfs_data
+    application: cephfs
+    state: present
+    pool_type: erasure
+    erasure_profile: ec_4_2_hdd
+    allow_ec_overwrites: true
+  - name: cephfs_metadata
+    application: cephfs
+    state: present
+    size: 3
 
 # List of Cephx keys. See stackhpc.cephadm.keys role for format.
 #cephadm_keys:
+cephadm_keys:
+  - name: client.cinder
+    caps:
+      mon: "profile rbd"
+      osd: "profile rbd pool=volumes, profile rbd-read-only pool=images, profile rbd pool=volumes-data, profile rbd-read-only pool=images-data"
+      mgr: "profile rbd pool=volumes, profile rbd pool=volumes-data"
+    state: present 
+  - name: client.cinder-backup
+    caps:
+      mon: "profile rbd"
+      osd: "profile rbd pool=volumes, profile rbd pool=backups, profile rbd pool=volumes-data, profile rbd pool=backups-data"
+      mgr: "profile rbd pool=volumes, profile rbd pool=backups, profile rbd pool=volumes-data, profile rbd pool=backups-data"
+    state: present
+  - name: client.glance
+    caps:
+      mon: "profile rbd"
+      osd: "profile rbd pool=images, profile rbd pool=images-data"
+      mgr: "profile rbd pool=images, profile rbd pool=images-data"
+    state: present
+  - name: client.manila
+    caps:
+      mon: "allow r"
+      mgr: "allow rw"
+    state: present
 
 # A list of commands to pass to cephadm shell -- ceph. See
 # stackhpc.cephadm.commands for format. Pre commands run before the rest of the
@@ -87,10 +184,16 @@ cephadm_commands_pre: "{{ cephadm_commands_pre_default + cephadm_commands_pre_ex
 cephadm_commands_post: "{{ cephadm_commands_post_default + cephadm_commands_post_extra }}"
 
 cephadm_commands_pre_default: []
-cephadm_commands_pre_extra: []
+
+cephadm_commands_pre_extra:
+ - "config set global ms_cluster_mode secure"
+ - "config set global ms_service_mode secure"
+ - "config set global ms_client_mode secure"
 
 cephadm_commands_post_default: "{{ ['mgr module enable prometheus'] if kolla_enable_prometheus_ceph_mgr_exporter | default(False) | bool else [] }}"
-cephadm_commands_post_extra: []
+cephadm_commands_post_extra:
+  - "fs new manila-cephfs cephfs_metadata cephfs_data --force"
+  - "orch apply mds manila-cephfs"
 
 ###############################################################################
 # Kolla Ceph auto-configuration.
