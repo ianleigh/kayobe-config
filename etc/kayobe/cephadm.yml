@@ -8,7 +8,7 @@ cephadm_ssh_user: cloud-user
 cephadm_ceph_release: "squid"
 
 # Ceph FSID.
-#cephadm_fsid:
+cephadm_fsid: 6b1c8ea4-a205-11f1-9eac-f0fb7f750a70
 
 # Ceph container image.
 cephadm_image: "{{ stackhpc_docker_registry if stackhpc_sync_ceph_images | bool else 'quay.io' }}/ceph/ceph:{{ cephadm_image_tag }}"
@@ -91,6 +91,8 @@ cephadm_osd_spec: |
   spec:
     data_devices:
       size: '890GB:900GB'
+      paths:
+        - /dev/mapper/*
 
 # Additional arguments to pass to `cephadm bootstrap`.
 #cephadm_bootstrap_additional_parameters:
