@@ -2,6 +2,8 @@
 ###############################################################################
 # Cephadm deployment configuration.
 
+cephadm_ssh_user: cloud-user
+
 # Ceph release name.
 cephadm_ceph_release: "squid"
 
