@@ -107,6 +107,7 @@ prod_inspection_allocation_pool_end: 192.168.10.249
 jbo_cidr: 130.88.9.0/25
 jbo_allocation_pool_start: 130.88.9.1
 jbo_allocation_pool_end: 130.88.9.120
+jbo_physical_network: physnet2
 
 data_cidr: 192.168.100.0/24
 data_vip_address: 192.168.100.100
