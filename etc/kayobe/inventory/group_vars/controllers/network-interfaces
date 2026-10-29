@@ -32,6 +32,7 @@ controller_default_network_interfaces: >
       oob_wl_net_name,
       provision_wl_net_name,
       inspection_net_name,
+      storage_net_name,
       internal_net_name,
       cleaning_net_name] | select | unique | list }}
 
@@ -39,6 +40,7 @@ controller_default_network_interfaces: >
 controller_network_host_default_network_interfaces: >
   {{ ([admin_oc_net_name,
        internal_net_name,
+       storage_net_name,
        public_net_name,
        tunnel_net_name] +
       external_net_names) | select | unique | list }}
