@@ -10,7 +10,7 @@ ctl-r650-01
 ctl-r650-02
 ctl-r650-03
 
-[compute_lenovo]
+[compute_flavor_sr650v2]
 c-sr650v2-01
 c-sr650v2-02
 c-sr650v2-03
@@ -20,17 +20,17 @@ c-sr650v2-06
 c-sr650v2-07
 # c-sr650v2-08 100G repurposed for controllers + Interface ens3f0np0 does not exist
 
-[compute_dell]
-# c-r660-01 100G repurposed for controllers
-# c-r660-02 100G repurposed for controllers
+[compute_flavor_r660_1]
+c-r660-01 # 100G repurposed for controllers
+c-r660-02 # 100G repurposed for controllers
 c-r660-03
 c-r660-04
 c-r660-05
 c-r660-06
 
 [compute:children]
-compute_lenovo
-compute_dell
+compute_flavor_sr650v2
+compute_flavor_r660_1
 
 [storage_me5]
 ceph-mds-01
